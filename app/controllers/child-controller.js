@@ -13,9 +13,10 @@ router.get('/', (req, res) => {
         })
 })
 
-//route to add a child
+//route to add a child hiiii
 router.post('/', (req, res) => {
     const body = req.body
+    const id
     const child = new Child(body)
     child.save()
         .then((child) => {
