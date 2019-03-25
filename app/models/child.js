@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const validator = require('validator')
 const { Schema } = mongoose
 const childSchema = new Schema({
     name: {
@@ -20,6 +21,7 @@ const childSchema = new Schema({
     },
     dob: {
         type: Date,
+        default : Date.now(),
         required: true
     },
     majorConcerns: {
