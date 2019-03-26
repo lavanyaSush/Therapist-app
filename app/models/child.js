@@ -21,8 +21,13 @@ const childSchema = new Schema({
     },
     dob: {
         type: Date,
+<<<<<<< HEAD
         default: Date.now(),
         required: false
+=======
+        default : Date.now(),
+        required: true
+>>>>>>> fc38ae5787c18275a3524708f058be84d9349a1a
     },
     majorConcerns: {
         type: String,
