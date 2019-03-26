@@ -15,7 +15,7 @@ const assessmentSchema = new Schema({
         required: true
     },
     category: {
-        category: Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: Category
     }
 })

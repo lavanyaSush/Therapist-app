@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const validator = require('validator')
 const { Schema } = mongoose
 const childSchema = new Schema({
     name: {
@@ -16,15 +17,16 @@ const childSchema = new Schema({
     },
     childPhoto: {
         type: Buffer,
-        required: true
+        required: false
     },
     dob: {
         type: Date,
-        required: true
+        default: Date.now(),
+        required: false
     },
     majorConcerns: {
         type: String,
-        required: true
+        required: false
     },
     motherName: {
         type: String,
@@ -32,7 +34,7 @@ const childSchema = new Schema({
     },
     phoneNumber: {
         type: Number,
-        required: true,
+        required: false,
         maxlength: 10,
         validate: {
             validator: function (value) {

@@ -13,12 +13,28 @@ router.get('/', (req, res) => {
         })
 })
 
-//route to add a child hiiii
+//route to add a child 
 router.post('/', (req, res) => {
     const body = req.body
-    const id
     const child = new Child(body)
     child.save()
+        .then((child) => {
+            if (child) {
+                res.send(child)
+            } else {
+                res.send({})
+            }
+        })
+        .catch((err) => {
+            res.send(err)
+        })
+})
+
+//route to edit a child 
+router.put('/:id', (req, res) => {
+    const body = req.body
+    const id = req.params.id
+    Child.findByIdAndUpdate({ _id: id }, body, { new: true })
         .then((child) => {
             if (child) {
                 res.send(child)

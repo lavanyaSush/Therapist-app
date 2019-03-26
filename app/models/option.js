@@ -5,10 +5,10 @@ const optionSchema = new Schema({
         type: String,
         required: true
     },
-    category: {
-        category: Schema.Types.ObjectId,
-        ref: Category
-    },
+    // category: {
+    //     type : Schema.Types.ObjectId,
+    //     ref: Category
+    // },
     points: {
         type: Number,
         required: true

@@ -5,18 +5,18 @@ const factorGridSchema = new Schema({
         type: String,
         required: true
     },
-    category: {
-        category: Schema.Types.ObjectId,
-        ref: Category
-    },
+    // category: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: Category
+    // },
     questions: {
         type: [String],
         required: true
     },
-    options: {
-        options: Schema.Types.ObjectId,
-        ref: Option
-    },
+    // options: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: Option
+    // },
     factorRawTotal: {
         type: Number,
         required: true

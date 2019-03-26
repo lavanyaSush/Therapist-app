@@ -7,8 +7,7 @@ const questionSchema = new Schema({
     },
 
     options: {
-        option: Schema.Types.ObjectId,
-        ref: Options
+        type: [Schema.Types.ObjectId],
     },
     thresholdKey: {
         type: String,
@@ -16,7 +15,7 @@ const questionSchema = new Schema({
     },
     icon: {
         type: Buffer,
-        required: true
+        required: false
     }
 })
 const Question = mongoose.model('Question', questionSchema)

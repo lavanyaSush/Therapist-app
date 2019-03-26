@@ -2,11 +2,11 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 const factorSummarySchema = new Schema({
     category: {
-        categoryName: Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: FactorGrid
     },
-    factorRawTotal = {
-        factorRawTotal = Schema.Types.ObjectId,
+    factorRawTotal: {
+        type: Schema.Types.ObjectId,
         ref: FactorGrid
     },
     typicalPerformance: {
