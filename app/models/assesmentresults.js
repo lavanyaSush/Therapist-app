@@ -33,9 +33,9 @@ const assesmentResultSchema = new Schema({
 
 })
 
-const Assesmentresult = mongoose.model('Assesmentresult', assesmentResultSchema)
+const AssesmentResult = mongoose.model('AssesmentResult', assesmentResultSchema)
 module.exports = {
-    Assesmentresult
+    AssesmentResult
 }
 
 // [
