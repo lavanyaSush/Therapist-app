@@ -1,5 +1,5 @@
 const express = require('express')
-const {Therapist} = require('../models/therapist')
+const {Therapist} = require('../models/user')
 const router = express.Router()
 router.post('/register',(req,res)=>{
     const body = req.body

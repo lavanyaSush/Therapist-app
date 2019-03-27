@@ -14,7 +14,7 @@ const factorGridSchema = new Schema({
         required: true
     },
     options: {
-        options: Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: Option
     },
     factorRawTotal: {

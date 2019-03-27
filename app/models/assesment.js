@@ -1,13 +1,14 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 const assessmentSchema = new Schema({
-    childname: {
-        type: String,
-        required: true
+    child: {
+        type: Schema.Types.ObjectId,
+        ref :"Child",
+        required :true
     },
     assessmentDate: {
         type: Date,
-        default: new Date(),
+        default: Date.now,
         required: true
     },
     discipline: {
@@ -15,7 +16,7 @@ const assessmentSchema = new Schema({
         required: true
     },
     category: {
-        category: Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: Category
     }
 })

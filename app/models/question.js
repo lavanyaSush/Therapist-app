@@ -7,19 +7,26 @@ const questionSchema = new Schema({
     },
 
     options: {
-        option: Schema.Types.ObjectId,
-        ref: Options
+        type: [Schema.Types.ObjectId],
+        //ref: Option
     },
-    thresholdKey: {
-        type: String,
-        enum: ['', 'L', 'H']
+    // thresholdKey: {
+    //     type: String,
+    //     enum: ['', 'L', 'H']
+    // },
+    // 
+    subCategory :{
+        type : Schema.Types.ObjectId,
+        ref :"SubCategory"
     },
-    icon: {
-        type: Buffer,
-        required: true
+    iconCategory :{
+        type :Schema.Types.ObjectId,
+        ref :"IconCategory"
     }
 })
 const Question = mongoose.model('Question', questionSchema)
 module.exports = {
     Question
 }
+//create an icon category  which will have title and image 
+//add an image category ref to question schema

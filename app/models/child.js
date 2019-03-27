@@ -16,12 +16,11 @@ const childSchema = new Schema({
         required: true
     },
     childPhoto: {
-        type: Buffer,
+        type: String,
         required: true
     },
     dob: {
         type: Date,
-        default : Date.now(),
         required: true
     },
     majorConcerns: {
@@ -33,7 +32,7 @@ const childSchema = new Schema({
         required: true
     },
     phoneNumber: {
-        type: Number,
+        type: String,
         required: true,
         maxlength: 10,
         validate: {
