@@ -3,11 +3,11 @@ const { Schema } = mongoose
 const factorSummarySchema = new Schema({
     category: {
         type: Schema.Types.ObjectId,
-        ref: FactorGrid
+        ref: "FactorGrid"
     },
     factorRawTotal: {
         type: Schema.Types.ObjectId,
-        ref: FactorGrid
+        ref: "FactorGrid"
     },
     typicalPerformance: {
         type: [Number],

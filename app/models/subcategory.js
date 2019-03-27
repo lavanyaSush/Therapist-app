@@ -4,11 +4,12 @@ const subCategorySchema = new Schema({
     name: {
         type: String,
         required: true
+    },
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: "Category"
     }
-    // category: {
-    //     type: Schemaa.Types.ObjectId,
-    //     ref: Category
-    // },
+
     // question: {
     //     type: Schema.Types.ObjectId,
     //     ref: Question

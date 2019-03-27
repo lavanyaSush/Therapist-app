@@ -1,27 +1,26 @@
 const express = require('express')
 const router = express.Router()
-const { SubCategory } = require('../models/subcategory')
+const { AssesmentResult } = require('../models/assesmentresults')
 
-//route to get subcatergory detials
+//route to get assesmentResult detials
 router.get('/', (req, res) => {
-    SubCategory.find()
-        .then((subcatergories) => {
-            res.send(subcatergories)
+    AssesmentResult.find()
+        .then((assesmentResult) => {
+            res.send(assesmentResult)
         })
         .catch((err) => {
             res.send(err)
         })
 })
 
-//route to add a subcatergory 
+//route to add a assesmentResult 
 router.post('/', (req, res) => {
     const body = req.body
-    const subcatergory = new SubCategory(body)
-    console.log("im here")
-    subcatergory.save()
-        .then((subcatergory) => {
-            if (subcatergory) {
-                res.send(subcatergory)
+    const assesmentResult = new AssesmentResult(body)
+    assesmentResult.save()
+        .then((assesmentResult) => {
+            if (assesmentResult) {
+                res.send(assesmentResult)
             } else {
                 res.send({})
             }
@@ -32,13 +31,13 @@ router.post('/', (req, res) => {
 })
 
 
-//route - to get a subcatergory by ID
+//route - to get a assesmentResult by ID
 router.get('/:id', (req, res) => {
     const id = req.params.id
-    SubCategory.findById({ _id: id })
-        .then((subcatergory) => {
-            if (subcatergory) {
-                res.send(subcatergory)
+    AssesmentResult.findById({ _id: id })
+        .then((assesmentResult) => {
+            if (assesmentResult) {
+                res.send(assesmentResult)
             } else {
                 res.send({})
             }
@@ -48,14 +47,14 @@ router.get('/:id', (req, res) => {
         })
 })
 
-//route to edit a subcategory 
+//route to edit a assesmentResult 
 router.put('/:id', (req, res) => {
     const body = req.body
     const id = req.params.id
-    SubCategory.findByIdAndUpdate({ _id: id }, body, { new: true })
-        .then((subcategory) => {
-            if (subcategory) {
-                res.send(subcategory)
+    AssesmentResult.findByIdAndUpdate({ _id: id }, body, { new: true })
+        .then((assesmentResult) => {
+            if (assesmentResult) {
+                res.send(assesmentResult)
             } else {
                 res.send({})
             }
@@ -68,10 +67,10 @@ router.put('/:id', (req, res) => {
 //route - to delete a record by Id
 router.delete('/:id', (req, res) => {
     const id = req.params.id
-    SubCategory.findByIdAndDelete(id)
-        .then((subcatergory) => {
-            if (subcatergory) {
-                res.send(subcatergory)
+    AssesmentResult.findByIdAndDelete(id)
+        .then((assesmentResult) => {
+            if (assesmentResult) {
+                res.send(assesmentResult)
             } else {
                 res.send({})
             }
@@ -82,4 +81,4 @@ router.delete('/:id', (req, res) => {
 
 })
 
-module.exports = { subcategoryRouter: router }
+module.exports = { assesmentResultRouter: router }

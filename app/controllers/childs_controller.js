@@ -16,10 +16,6 @@ router.get('/', (req, res) => {
 //route to add a child 
 router.post('/', (req, res) => {
     const body = req.body
-<<<<<<< HEAD:app/controllers/childs_controller.js
-=======
-    
->>>>>>> fc38ae5787c18275a3524708f058be84d9349a1a:app/controllers/childs_controller.js
     const child = new Child(body)
     child.save()
         .then((child) => {

@@ -1,13 +1,13 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 const assessmentSchema = new Schema({
-    childname: {
-        type: String,
+    child: {
+        type: Schema.Types.ObjectId,
+        ref: "Child",
         required: true
     },
     assessmentDate: {
         type: Date,
-        default: new Date(),
         required: true
     },
     discipline: {
@@ -16,8 +16,9 @@ const assessmentSchema = new Schema({
     },
     category: {
         type: Schema.Types.ObjectId,
-        ref: Category
+        ref: "Category"
     }
+
 })
 const Assessment = mongoose.model('Assessment', assessmentSchema)
 module.exports = {

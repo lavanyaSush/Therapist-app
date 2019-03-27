@@ -8,7 +8,7 @@ const port = 3001
 
 app.use(express.json())
 app.use(cors())
-<<<<<<< HEAD
+
 
 const { childRouter } = require('./app/controllers/childs_controller')
 const { categoryRouter } = require('./app/controllers/category_controller')
@@ -17,12 +17,10 @@ const { questionRouter } = require('./app/controllers/question_controller')
 const { optionRouter } = require('./app/controllers/option_controller')
 const { factorgridRouter } = require('./app/controllers/factorgrid_controller')
 const { factorsummaryRouter } = require('./app/controllers/factorsummary_controller')
-
-=======
-const { childRouter } = require('./app/controllers/childs_controller')
-const {therapistRouter} = require('./app/controllers/therapists_controller')
+const { assesmentRouter } = require('./app/controllers/assesment_controller')
+const { assesmentResultRouter } = require('./app/controllers/assementResults_controller')
+const { therapistRouter } = require('./app/controllers/therapists_controller')
 require('./config/database')
->>>>>>> fc38ae5787c18275a3524708f058be84d9349a1a
 
 app.get('/', (req, res) => {
     res.send('welcome to therapist-code')
@@ -30,18 +28,15 @@ app.get('/', (req, res) => {
 
 
 app.use('/child', childRouter)
-<<<<<<< HEAD
 app.use('/category', categoryRouter)
 app.use('/subcategory', subcategoryRouter)
 app.use('/question', questionRouter)
 app.use('/option', optionRouter)
 app.use('/factorgrid', factorgridRouter)
 app.use('/factorsummary', factorsummaryRouter)
-
-
-=======
-app.use('/therapist',therapistRouter)
->>>>>>> fc38ae5787c18275a3524708f058be84d9349a1a
+app.use('/therapist', therapistRouter)
+app.use('/assesment', assesmentRouter)
+app.use('/assesmentResult', assesmentResultRouter)
 
 app.listen(port, () => {
     console.log('Listening to port', port)

@@ -5,7 +5,10 @@ const questionSchema = new Schema({
         type: String,
         required: true
     },
-
+    subCategory: {
+        type: Schema.Types.ObjectId,
+        ref: "SubCategory"
+    },
     options: {
         type: [Schema.Types.ObjectId],
     },
@@ -13,10 +16,11 @@ const questionSchema = new Schema({
         type: String,
         enum: ['', 'L', 'H']
     },
-    icon: {
-        type: Buffer,
-        required: false
+    imagecategory: {
+        type: Schema.Types.ObjectId,
+        ref: "IconCategory"
     }
+    //create an icon category which will have title and image add image catergory ref to question schema
 })
 const Question = mongoose.model('Question', questionSchema)
 module.exports = {
