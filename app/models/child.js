@@ -9,7 +9,7 @@ const childSchema = new Schema({
     },
     age: {
         type: Number,
-        required: true
+        required: false
     },
     gender: {
         type: String,
@@ -21,7 +21,6 @@ const childSchema = new Schema({
     },
     dob: {
         type: Date,
-        required: true
     },
     majorConcerns: {
         type: String,
@@ -35,14 +34,7 @@ const childSchema = new Schema({
         type: String,
         required: true,
         maxlength: 10,
-        validate: {
-            validator: function (value) {
-                return validator.isMobilePhone(value)
-            },
-            message: function (value) {
-                return 'invalid phonenumber'
-            }
-        }
+        
     },
     location: {
         type: String,
@@ -51,7 +43,6 @@ const childSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
         validate: {
             validator: function (value) {
                 return validator.isEmail(value)

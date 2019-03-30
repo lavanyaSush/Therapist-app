@@ -5,10 +5,12 @@ const questionSchema = new Schema({
         type: String,
         required: true
     },
-
+    subCategory: {
+        type: Schema.Types.ObjectId,
+        ref: "SubCategory"
+    },
     options: {
         type: [Schema.Types.ObjectId],
-        //ref: Option
     },
     // thresholdKey: {
     //     type: String,
@@ -19,10 +21,11 @@ const questionSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref :"SubCategory"
     },
-    iconCategory :{
-        type :Schema.Types.ObjectId,
-        ref :"IconCategory"
+    imagecategory: {
+        type: Schema.Types.ObjectId,
+        ref: "IconCategory"
     }
+    //create an icon category which will have title and image add image catergory ref to question schema
 })
 const Question = mongoose.model('Question', questionSchema)
 module.exports = {

@@ -3,13 +3,12 @@ const { Schema } = mongoose
 const assessmentSchema = new Schema({
     child: {
         type: Schema.Types.ObjectId,
-        ref :"Child",
-        required :true
+        ref: "Child",
+        required: false
     },
     assessmentDate: {
         type: Date,
-        default: Date.now,
-        required: true
+        required: false
     },
     discipline: {
         type: String,
@@ -17,8 +16,9 @@ const assessmentSchema = new Schema({
     },
     category: {
         type: Schema.Types.ObjectId,
-        ref: Category
+        ref: "Category"
     }
+
 })
 const Assessment = mongoose.model('Assessment', assessmentSchema)
 module.exports = {
