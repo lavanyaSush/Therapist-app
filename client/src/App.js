@@ -6,6 +6,7 @@ import Register from './components/user/Register'
 import AddChild from './components/child/AddChild'
 import AddCategory from './components/AdminDashboard/AddCategory'
 import AddSubCategory from './components/AdminDashboard/AddSubCategory';
+import AddOption from './components/AdminDashboard/AddOptions'
 import ViewCategories from './components/AdminDashboard/ViewCategories'
 import ViewSubCategories from './components/AdminDashboard/ViewSubCategories'
 import ChildList from './components/child/ChildList'
@@ -32,6 +33,7 @@ class App extends Component {
         <Route path="/child/new" component={AddChild}/>
         <Route path="/category/new" component={AddCategory}/>
         <Route path="/subcategory/new" component={AddSubCategory}/>
+        <Route path="/option/new" component={AddOption}/>
         <Route path="/category/list" component={ViewCategories}/>
         <Route path="/subcategory/list" component={ViewSubCategories}/>
         <Route path="/child/list" component={ChildList} exact={true}/>

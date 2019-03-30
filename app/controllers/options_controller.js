@@ -16,6 +16,7 @@ router.get('/', (req, res) => {
 //route to add a option 
 router.post('/', (req, res) => {
     const body = req.body
+    //console.log(body)
     const option = new Option(body)
     option.save()
         .then((option) => {
