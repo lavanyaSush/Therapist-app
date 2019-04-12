@@ -1,17 +1,17 @@
 import React from 'react'
 import axios from '../../config/axios';
 import {Link} from 'react-router-dom'
-class  ListCategories extends React.Component {
+class  ListAssesmentCategories extends React.Component {
     constructor(){
         super()
         this.state={
-            categories:[]
+            assesmentCategories:[]
         }
     }
     componentDidMount(){
-        axios.get('/category')
+        axios.get('/assesmentCategory')
         .then((response)=>{
-            this.setState(()=>({categories:response.data}))
+            this.setState(()=>({assesmentCategories:response.data}))
         })
         .catch((err)=>{
             console.log(err)
@@ -21,17 +21,17 @@ class  ListCategories extends React.Component {
     render(){
     return(
         <div>
-            <h2>Listing Categories-{this.state.categories.length}</h2>
+            <h2>Listing AssesmentCategories-{this.state.assesmentCategories.length}</h2>
             <ul>
-                {this.state.categories.map((category)=>{
+                {this.state.assesmentCategories.map((category)=>{
                     return <li key={category._id}>{category.name}</li>
                 })}
             </ul>
-            <Link to="/category/new"> AddCategory</Link>
+            <Link to="/assesmentCategory/new"> Add AssesmentCategory</Link>
         </div>
     )
     }
 }
-export default ListCategories
+export default ListAssesmentCategories
 
 

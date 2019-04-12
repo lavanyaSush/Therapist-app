@@ -10,7 +10,7 @@ const IconSchema = new Schema({
         required: true
     }
 })
-const IconCategory = mongoose.model('IconCategory', IconSchema)
+const Icon = mongoose.model('Icon', IconSchema)
 module.exports = {
-    IconCategory
+    Icon
 }

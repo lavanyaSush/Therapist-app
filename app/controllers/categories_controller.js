@@ -5,7 +5,9 @@ const { Category } = require('../models/category')
 //route to get category detials
 router.get('/', (req, res) => {
     Category.find()
+    
         .then((categories) => {
+            
             res.send(categories)
         })
         .catch((err) => {

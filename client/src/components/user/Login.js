@@ -3,7 +3,7 @@ import {Form,Input,FormGroup,Label} from 'reactstrap'
 import axios from '../../config/axios';
 import {setUser} from '../../actions/user'
 import {connect} from 'react-redux'
-import {Link,Redirect} from 'react-router-dom'
+//import {Link,Redirect} from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
 class Login extends React.Component{
     constructor(props){

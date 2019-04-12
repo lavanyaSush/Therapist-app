@@ -15,6 +15,9 @@ const { factorsummaryRouter } = require('./app/controllers/factorsummarys_contro
 const { assesmentRouter } = require('./app/controllers/assesments_controller')
 const { assesmentResultRouter } = require('./app/controllers/assementResults_controller')
 const { userRouter } = require('./app/controllers/users_controller')
+const {iconRouter} =require('./app/controllers/icons_controller')
+const {disciplineRouter} = require('./app/controllers/disciplines_controller')
+const {assesmentCategoryRouter} = require('./app/controllers/assesmentCategories_controller')
 require('./config/database')
 
 app.get('/', (req, res) => {
@@ -30,8 +33,11 @@ app.use('/option', optionRouter)
 app.use('/factorgrid', factorgridRouter)
 app.use('/factorsummary', factorsummaryRouter)
 app.use('/user', userRouter)
-app.use('/assessment', assesmentRouter)
-app.use('/assessmentResult', assesmentResultRouter)
+app.use('/assesment', assesmentRouter)
+app.use('/assesmentResult', assesmentResultRouter)
+app.use('/icon',iconRouter)
+app.use('/discipline',disciplineRouter)
+app.use('/assesmentCategory',assesmentCategoryRouter)
 
 app.listen(port, () => {
     console.log('Listening to port', port)

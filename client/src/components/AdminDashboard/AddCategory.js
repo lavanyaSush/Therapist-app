@@ -5,9 +5,24 @@ class AddCategory extends React.Component{
     constructor(){
         super()
         this.state={
-            name:''
+            name:'',
+            assesmentCategories:[],
+            assesmentCategory:''
            
         }
+    }
+    componentDidMount(){
+        axios.get('/assesmentCategory')
+        .then((response)=>{
+            this.setState(()=>({assesmentCategories:response.data}))
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+    handleassesmentCategory=(event)=>{
+        const assesmentCategory=event.target.value
+        this.setState(()=>({assesmentCategory}))
     }
     handleName=(event)=>{
         const name=event.target.value
@@ -16,7 +31,8 @@ class AddCategory extends React.Component{
     handleSubmit=(event)=>{
         event.preventDefault()
         const formData={
-            name:this.state.name
+            name:this.state.name,
+            assesmentCategory:this.state.assesmentCategory
         }
         console.log(formData)
         axios.post('/category',formData)
@@ -34,6 +50,17 @@ class AddCategory extends React.Component{
             <div>
                 <h2>Add Category </h2>
                 <Form onSubmit={this.handleSubmit}>
+                {/* <FormGroup>
+                        <Label>Select  assesmentCategory
+                            <select value={this.state.assesmentCategory} onChange={this.handleassesmentCategory}>
+                                <option value="select">select</option>
+                                {this.state.assesmentCategories.map((assesmentCategory)=>{
+                                    return <option key={assesmentCategory._id} value={assesmentCategory._id}>{assesmentCategory.name}</option>
+                                }) }
+                                
+                            </select>
+                        </Label>
+                    </FormGroup> */}
                     <FormGroup>
                         <Label>name
                             <Input type="text" value={this.state.name} onChange={this.handleName}/><br/>

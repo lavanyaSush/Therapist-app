@@ -1,13 +1,18 @@
 import React from 'react'
 import {Table} from 'reactstrap'
 import axios from '../../config/axios';
-import {Link} from 'react-router-dom'
+//import {Link} from 'react-router-dom'
+
 class TableDisplay extends React.Component{
     constructor(){
         super()
         this.state={
-            children :[]
+            children :[],
+            currentPage:1,
+            childrenPerPage:3
         }
+        this.handleClick = this.handleClick.bind(this);
+
     }
     componentDidMount(){
         console.log('entered cdid mount')
@@ -27,10 +32,50 @@ class TableDisplay extends React.Component{
       
         return Math.abs(age_dt.getUTCFullYear() - 1970);
     }
+    handleClick(event) {
+        this.setState({
+          currentPage: Number(event.target.id)
+        });
+      }
+
     render(){
+        const {children,currentPage,childrenPerPage} = this.state
+        console.log(children,currentPage,childrenPerPage)
+        //logic for displaying current children
+        const indexOfLastChild = currentPage * childrenPerPage;
+        const indexOfFirstChild = indexOfLastChild - childrenPerPage;
+        const currentChildren = children.slice(indexOfFirstChild,indexOfLastChild)
+        const renderChildren = currentChildren.map((child,index)=>{
+            
+            return <tr key={index}>
+            <td>{index+1}</td>
+            <td>{child.name}</td>
+            <td>{this.calage(new Date(child.dob))}</td>
+            <td>{child.gender}</td>
+            <td>{child.majorConcerns}</td>
+            <td>{child.email}</td>
+            <td><img alt='' src={child.childPhoto} width="100" height="100"/></td>
+            </tr>
+        })
+        //logic for displaying page numbers
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(children.length / childrenPerPage); i++) {
+          pageNumbers.push(i);
+        }
+
+        const renderPageNumbers = pageNumbers.map(number => {
+          return (
+            <li
+              key={number}
+              id={number}
+              onClick={this.handleClick}
+            >
+              {number}
+            </li>
+          );
+        });
         return(
             <div>
-                <h2>Listing Children-{this.state.children.length}</h2>
                 <Table>
                     <thead>
                         <tr>
@@ -44,22 +89,12 @@ class TableDisplay extends React.Component{
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.children.map((child,index)=>{
-                            return(   <tr key={child._id}>
-                                    <td>{index+1}</td>
-                                    <td><Link to={`/child/${child._id}`}>{child.name}</Link></td>
-                                    <td>{this.calage(new Date(child.dob))}</td>
-                                    <td>{child.gender}</td>
-                                    <td>{child.majorConcerns}</td>
-                                    <td>{child.email}</td>
-                                    <td><img src={child.childPhoto}
-                                    width="100"
-                                    height="100"/></td>
-                            </tr>)
-                            })}
-                                              
+                        {renderChildren}
                     </tbody>
                 </Table>
+               <ul id="page-numbers">
+                {renderPageNumbers}
+                </ul>
             </div>
         )
     }

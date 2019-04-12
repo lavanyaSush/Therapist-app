@@ -8,6 +8,10 @@ const userSchema = new Schema({
         type: String,
         required: false
     },
+    role : {
+        type : String,
+        required : true
+    },
     email: {
         type: String,
         required: true,
@@ -39,6 +43,31 @@ const userSchema = new Schema({
             }
         }
     ]
+})
+userSchema.pre('validate',function(next){
+    const User = this
+    if(User.isNew){
+    this.constructor.countDocuments(function(err,count){
+        if(err){
+            console.log('1',err)
+            return next(err)
+        }
+        if(count==0){
+            User.role='admin'
+            next()
+           
+        }
+        else{
+            User.role='customer'
+            next()
+           
+        }
+    })
+}
+else{
+    next()
+}
+    
 })
 userSchema.pre('save', function (next) {
     if (this.isNew) {

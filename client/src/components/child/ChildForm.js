@@ -48,7 +48,7 @@ class ChildForm extends React.Component{
             isError = true
             errors.phoneNumberError = 'phone number should be 10 numbers'
         }
-        if(this.state.location.length==0){
+        if(this.state.location.length===0){
             isError = true
             errors.locationError = 'location should not be empty'
         }
@@ -60,14 +60,7 @@ class ChildForm extends React.Component{
     }
     handleSubmit=(event)=>{
         event.preventDefault()
-        // const formErrors ={
-        //     nameError :this.state.nameError,
-        //     majorConcernsError :this.state.majorConcernsError,
-        //     motherNameError :this.state.motherNameError,
-        //     phoneNumberError :this.state.phoneNumberError,
-        //     locationError:this.state.locationError,
-        //     emailError :this.state.emailError
-        // }
+       
         const formData = new FormData()
         
         formData.append('name' , this.state.name)
@@ -90,7 +83,7 @@ class ChildForm extends React.Component{
                // nameError :'',
                 gender :'',
                 age :'',
-                 dob :'',
+                dob :'',
                 majorConcerns:'',
                 //majorConcernsError :'',
                 motherName :'',
@@ -144,12 +137,7 @@ class ChildForm extends React.Component{
                     <p>{this.state.nameError}</p>
                 </Label>
             </FormGroup>
-            {/* <FormGroup>
-                <Label>age
-                    <Input type="text" value={this.state.age} name="age"onChange={this.handleChange}/>
-                   
-                </Label>
-            </FormGroup> */}
+           
             <FormGroup>
                 <Label>gender
                     <select value={this.state.value}onChange={this.handleGender}>
@@ -164,11 +152,7 @@ class ChildForm extends React.Component{
                     <textarea value={this.state.majorConcerns} name="majorConcerns"onChange={this.handleChange}/>
                 </Label>
             </FormGroup>
-            {/* <FormGroup>
-                <Label>DateOfBirth
-                    <Input type="date" value={this.state.dob} onChange={this.handleDate}/>
-                </Label>
-            </FormGroup> */}
+            
             <FormGroup>
                 <Label>DateOfBirth
             <DatePicker

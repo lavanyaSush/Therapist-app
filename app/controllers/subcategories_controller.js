@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     const body = req.body
     const subcategory = new SubCategory(body)
-    console.log("im here")
+    //console.log("im here")
     subcategory.save()
         .then((subcategory) => {
             if (subcategory) {

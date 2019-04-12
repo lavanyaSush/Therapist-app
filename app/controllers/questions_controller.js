@@ -12,7 +12,16 @@ router.get('/', (req, res) => {
             res.send(err)
         })
 })
-
+router.get('/subcategory/:id',(req,res)=>{
+    const id=req.params.id
+    Question.find({subCategory:id})
+    .then((questions)=>{
+        res.send(questions)
+    })
+    .catch((err)=>{
+        res.send(err)
+    })
+})
 //route to add a question 
 router.post('/', (req, res) => {
     const body = req.body

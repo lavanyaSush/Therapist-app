@@ -1,26 +1,74 @@
 const mongoose = require('mongoose')
+const {AssesmentResult} = require('./assesmentresults')
+const {Category}= require('./category')
+const {Question}=require('./question')
 const { Schema } = mongoose
-const assessmentSchema = new Schema({
+const {SubCategory} =require('./subcategory')
+const assesmentSchema = new Schema({
     child: {
         type: Schema.Types.ObjectId,
         ref: "Child",
-        required: false
+        required: true
     },
-    assessmentDate: {
+    assesmentDate: {
         type: Date,
         required: false
     },
     discipline: {
-        type: String,
-        required: true
-    },
-    category: {
         type: Schema.Types.ObjectId,
-        ref: "Category"
+        ref:'Discipline',
+        required: true
     }
+    // assesmentCategory: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: "AssesmentCategory"
+    // }
 
 })
-const Assessment = mongoose.model('Assessment', assessmentSchema)
+
+assesmentSchema.post('save',function(next){
+   
+    const assesmentResult = new AssesmentResult()
+    assesmentResult.assesment=this._id
+    let assesResult={}
+    let questionsArray=[]
+    let questionIds=[]
+    let questionObject={}
+     SubCategory.find()
+    .then((subcategories)=>{
+        console.log(subcategories)
+        subcategories.forEach((subcategory)=>{
+            assesResult.subcategory=subcategory._id
+            questionIds=subcategory.questions
+            questionsArray=[]
+            for(let i=0;i<questionIds.length;i++){
+                questionObject={}
+                questionObject.question=questionIds[i]
+                //console.log(questionObject)
+                questionsArray.push(questionObject)
+                //console.log(questionsArray)
+            }
+            //console.log(questionsArray)
+            assesResult.questions=questionsArray
+            
+            assesmentResult.results.push(assesResult)
+            assesmentResult.save()
+            .then((result)=>{
+                //console.log(result)
+            })
+            })
+           
+          
+            
+           
+           
+        })
+    .catch((err)=>{
+        console.log(err)
+    })
+    next()
+})
+const Assesment = mongoose.model('Assesment', assesmentSchema)
 module.exports = {
-    Assessment
+    Assesment
 }

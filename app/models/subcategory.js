@@ -8,14 +8,17 @@ const subCategorySchema = new Schema({
     category: {
         type: Schema.Types.ObjectId,
         ref: 'Category'
+    }, 
+    questions:{ 
+        type:[Schema.Types.ObjectId],
+        ref:'Question'
     }
 
-    // question: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: Question
-    // }
+    
 })
 const SubCategory = mongoose.model('SubCategory', subCategorySchema)
 module.exports = {
     SubCategory
 }
+
+// SubCategory.find().populate('questions')

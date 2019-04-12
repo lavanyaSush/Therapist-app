@@ -1,27 +1,26 @@
 const express = require('express')
 const router = express.Router()
-const { Assesment } = require('../models/assesment')
+const { Discipline } = require('../models/discipline')
 
-//route to get assesment detials
+//route to get discipline detials
 router.get('/', (req, res) => {
-    Assesment.find()
-        .then((assesments) => {
-            res.send(assesments)
+    Discipline.find()
+        .then((disciplines) => {
+            res.send(disciplines)
         })
         .catch((err) => {
             res.send(err)
         })
 })
 
-//route to add a assesment 
+//route to add a discipline 
 router.post('/', (req, res) => {
     const body = req.body
-    //console.log(body)
-    const assesment = new Assesment(body)
-    assesment.save()
-        .then((assesment) => {
-            if (assesment) {
-                res.send(assesment)
+    const discipline = new Discipline(body)
+    discipline.save()
+        .then((discipline) => {
+            if (discipline) {
+                res.send(discipline)
             } else {
                 res.send({})
             }
@@ -32,13 +31,13 @@ router.post('/', (req, res) => {
 })
 
 
-//route - to get a assesment by ID
+//route - to get a discipline by ID
 router.get('/:id', (req, res) => {
     const id = req.params.id
-    Assesment.findById({ _id: id })
-        .then((assesment) => {
-            if (assesment) {
-                res.send(assesment)
+    Discipline.findById({ _id: id })
+        .then((discipline) => {
+            if (discipline) {
+                res.send(discipline)
             } else {
                 res.send({})
             }
@@ -48,14 +47,14 @@ router.get('/:id', (req, res) => {
         })
 })
 
-//route to edit a assesment 
+//route to edit a discipline 
 router.put('/:id', (req, res) => {
     const body = req.body
     const id = req.params.id
-    Assesment.findByIdAndUpdate({ _id: id }, body, { new: true })
-        .then((assesment) => {
-            if (assesment) {
-                res.send(assesment)
+    Discipline.findByIdAndUpdate({ _id: id }, body, { new: true })
+        .then((discipline) => {
+            if (discipline) {
+                res.send(discipline)
             } else {
                 res.send({})
             }
@@ -68,10 +67,10 @@ router.put('/:id', (req, res) => {
 //route - to delete a record by Id
 router.delete('/:id', (req, res) => {
     const id = req.params.id
-    Assesment.findByIdAndDelete(id)
-        .then((assesment) => {
-            if (assesment) {
-                res.send(assesment)
+    Discipline.findByIdAndDelete(id)
+        .then((discipline) => {
+            if (discipline) {
+                res.send(discipline)
             } else {
                 res.send({})
             }
@@ -82,4 +81,4 @@ router.delete('/:id', (req, res) => {
 
 })
 
-module.exports = { assesmentRouter: router }
+module.exports = { disciplineRouter: router }

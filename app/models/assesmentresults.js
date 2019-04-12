@@ -1,9 +1,10 @@
 const mongoose = require('mongoose')
 const {Schema} = mongoose
 const assesmentResultSchema = new Schema({
-    assessment: {
+    assesment: {
         type: Schema.Types.ObjectId,
-        ref: "Assessment"
+        ref: "Assesment"
+        
     },
     results: {
         type: [

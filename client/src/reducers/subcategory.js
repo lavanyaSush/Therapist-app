@@ -6,7 +6,7 @@ function subCategoryIntitalState(){
     axios.get('/subcategory')
     .then((response)=>{
         subcategories=response.data
-        console.log(subcategories)
+        //console.log(subcategories)
     })
     .catch((err)=>{
         console.log(err)
@@ -18,10 +18,10 @@ export const subCategoryReducer =(state=subCategoryIntitalState(),action)=>{
         case 'ADD_SUBCATEGORY' :
             return [...state,action.subcategory]
         case 'REMOVE_SUBCATEGORY' :
-            return state.filter((subcategory)=>subcategory.id!=action.id)
+            return state.filter((subcategory)=>subcategory.id!==action.id)
         case 'UPDATE_SUBCATEGORY' :
             return state.map((subcategory)=>{
-                if(subcategory.id==action.id){
+                if(subcategory.id===action.id){
                     return {...subcategory,...action.subcategory}
                 }
                 else{

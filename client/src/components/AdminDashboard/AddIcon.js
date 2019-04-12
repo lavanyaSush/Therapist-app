@@ -1,4 +1,6 @@
 import React from 'react'
+import axios from '../../config/axios';
+import {Form,Label,FormGroup,Input} from 'reactstrap'
 class AddIcon extends React.Component{
     constructor(){
         super()
@@ -16,6 +18,20 @@ class AddIcon extends React.Component{
         const icon=event.target.files[0]
         icon.src=''
         this.setState(()=>({icon}))
+    }
+    handleSubmit=(event)=>{
+        event.preventDefault()
+        const formData=new FormData()
+        formData.append('title',this.state.title)
+        formData.append('icon',this.state.icon)
+        axios.post('/icon',formData)
+        .then((response)=>{
+            console.log(response.data)
+            this.setState(()=>({title:'',icon:null}))
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
     }
     render(){
         return(
@@ -41,3 +57,4 @@ class AddIcon extends React.Component{
     }
 
 }
+export default AddIcon

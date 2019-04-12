@@ -1,27 +1,26 @@
 const express = require('express')
 const router = express.Router()
-const { Assesment } = require('../models/assesment')
+const { AssesmentCategory } = require('../models/assesmentCategory')
 
-//route to get assesment detials
+//route to get category detials
 router.get('/', (req, res) => {
-    Assesment.find()
-        .then((assesments) => {
-            res.send(assesments)
+    AssesmentCategory.find()
+        .then((categories) => {
+            res.send(categories)
         })
         .catch((err) => {
             res.send(err)
         })
 })
 
-//route to add a assesment 
+//route to add a category 
 router.post('/', (req, res) => {
     const body = req.body
-    //console.log(body)
-    const assesment = new Assesment(body)
-    assesment.save()
-        .then((assesment) => {
-            if (assesment) {
-                res.send(assesment)
+    const assesmentCategory = new AssesmentCategory(body)
+    assesmentCategory.save()
+        .then((category) => {
+            if (category) {
+                res.send(category)
             } else {
                 res.send({})
             }
@@ -32,13 +31,13 @@ router.post('/', (req, res) => {
 })
 
 
-//route - to get a assesment by ID
+//route - to get a category by ID
 router.get('/:id', (req, res) => {
     const id = req.params.id
-    Assesment.findById({ _id: id })
-        .then((assesment) => {
-            if (assesment) {
-                res.send(assesment)
+    AssesmentCategory.findById({ _id: id })
+        .then((category) => {
+            if (category) {
+                res.send(category)
             } else {
                 res.send({})
             }
@@ -48,14 +47,14 @@ router.get('/:id', (req, res) => {
         })
 })
 
-//route to edit a assesment 
+//route to edit a category 
 router.put('/:id', (req, res) => {
     const body = req.body
     const id = req.params.id
-    Assesment.findByIdAndUpdate({ _id: id }, body, { new: true })
-        .then((assesment) => {
-            if (assesment) {
-                res.send(assesment)
+    AssesmentCategory.findByIdAndUpdate({ _id: id }, body, { new: true })
+        .then((category) => {
+            if (category) {
+                res.send(category)
             } else {
                 res.send({})
             }
@@ -68,10 +67,10 @@ router.put('/:id', (req, res) => {
 //route - to delete a record by Id
 router.delete('/:id', (req, res) => {
     const id = req.params.id
-    Assesment.findByIdAndDelete(id)
-        .then((assesment) => {
-            if (assesment) {
-                res.send(assesment)
+    AssesmentCategory.findByIdAndDelete(id)
+        .then((category) => {
+            if (category) {
+                res.send(category)
             } else {
                 res.send({})
             }
@@ -82,4 +81,4 @@ router.delete('/:id', (req, res) => {
 
 })
 
-module.exports = { assesmentRouter: router }
+module.exports = { assesmentCategoryRouter: router }
