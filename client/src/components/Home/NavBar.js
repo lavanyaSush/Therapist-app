@@ -27,6 +27,7 @@ const NavBar =(props)=>{
                 <Link className="dropdown-item"to="/icon/new">AddIcon</Link>
                 <Link className="dropdown-item"to="/question/new">AddQuestion</Link>
                  <Link className="dropdown-item"to="/category/new"> AddCategory </Link>
+                 <Link className="dropdown-item"to="/category/list"> ViewCategory </Link>
                 <Link className="dropdown-item"to="/subcategory/new">AddSubCategory</Link> 
                 <Link className="dropdown-item"to="/discipline/new">AddDiscipline</Link></div>
                 :<div>
