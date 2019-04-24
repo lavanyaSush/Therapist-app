@@ -44,11 +44,11 @@ class ListSubCategory extends React.Component{
                 <div className="row">
                 <div className="col">
                 <h2>Subcategories list---{this.state.subCategories.length}</h2>
-                <ul>
+                {/* <ul>
                     {this.state.subCategories.map((subCategory)=>{
                         return <li key={subCategory._id}>{subCategory.name}</li>
                     })}
-                </ul>
+                </ul> */}
                 </div>
                 <Link to="/subcategory/new">AddSubCategory</Link>
                 </div>
