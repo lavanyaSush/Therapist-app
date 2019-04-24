@@ -12,7 +12,7 @@ class AddCategory extends React.Component {
             .then(response => {
                 const data = response.data
                 console.log(data)
-                this.props.history.push("/category/list")
+               // this.props.history.push("/category/list")
 
             })
             .catch(err => {
