@@ -26,9 +26,10 @@ const NavBar =(props)=>{
                  {user.role=='admin'?<div> <Link className="dropdown-item"to="/option/new">AddOption</Link>
                 <Link className="dropdown-item"to="/icon/new">AddIcon</Link>
                 <Link className="dropdown-item"to="/question/new">AddQuestion</Link>
-                 <Link className="dropdown-item"to="/category/list"> ViewCategory </Link>
-                <Link className="dropdown-item"to="/subcategory/list"> ViewSubCategories</Link> 
-                <Link className="dropdown-item"to="/discipline/list">ListDisciplines</Link></div>:<div>
+                 <Link className="dropdown-item"to="/category/new"> AddCategory </Link>
+                <Link className="dropdown-item"to="/subcategory/new">AddSubCategory</Link> 
+                <Link className="dropdown-item"to="/discipline/list">ListDisciplines</Link></div>
+                :<div>
                      <Link className="dropdown-item"to="/child/list">ChildList</Link>
                 <Link className="dropdown-item"to="/child/assesment/new">AddAssesment</Link>
                   </div>   }
