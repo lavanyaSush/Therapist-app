@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from '../../config/axios';
-import {setUser} from '../../actions/user'
+import {removeUser} from '../../actions/user'
 import {connect} from 'react-redux'
 class  Logout extends React.Component{
     constructor(props){
@@ -15,10 +15,10 @@ class  Logout extends React.Component{
             console.log(response.data)
             
             this.setState(()=>({logoutMessage:true}))
-            this.props.dispatch(setUser({}))
+            this.props.dispatch(removeUser({}))
             localStorage.removeItem('authToken')
 
-            this.props.history.push('/')
+            this.props.history.push('/user/login')
         })
         .catch((err)=>{
             console.log(err)
@@ -28,9 +28,7 @@ class  Logout extends React.Component{
     render(){
         return(
             <div>
-            {this.state.logoutMessage && 
-            <h2>logout successfull</h2>
-            }
+           
         
         </div>
         )

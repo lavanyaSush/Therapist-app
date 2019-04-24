@@ -32,6 +32,9 @@ class AddDiscipline extends React.Component{
     render(){
         return(
             <div>
+                <div className="container">
+                <div className="row">
+                <div className="col">
                 <h2>Add discipline </h2>
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
@@ -41,6 +44,9 @@ class AddDiscipline extends React.Component{
                     </FormGroup>
                     <input type="submit" value="submit"/>
                 </Form>
+                </div>
+            </div>
+            </div>  
             </div>
         )
     }

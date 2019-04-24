@@ -5,6 +5,7 @@ const { Assesment } = require('../models/assesment')
 //route to get assesment detials
 router.get('/', (req, res) => {
     Assesment.find()
+    .populate('child')
         .then((assesments) => {
             res.send(assesments)
         })
@@ -20,11 +21,10 @@ router.post('/', (req, res) => {
     const assesment = new Assesment(body)
     assesment.save()
         .then((assesment) => {
-            if (assesment) {
+           // console.log('data',asmt)
+            
                 res.send(assesment)
-            } else {
-                res.send({})
-            }
+             
         })
         .catch((err) => {
             res.send(err)
@@ -36,6 +36,7 @@ router.post('/', (req, res) => {
 router.get('/:id', (req, res) => {
     const id = req.params.id
     Assesment.findById({ _id: id })
+    .populate('child')
         .then((assesment) => {
             if (assesment) {
                 res.send(assesment)

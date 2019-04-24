@@ -21,13 +21,19 @@ class  ListDisciplines extends React.Component {
     render(){
     return(
         <div>
-            <h2>Listing disciplines-{this.state.disciplines.length}</h2>
+             <div className="container">
+                <div className="row">
+                <div className="col">
+                <h2>Listing disciplines-{this.state.disciplines.length}</h2>
             <ul>
                 {this.state.disciplines.map((discipline)=>{
                     return <li key={discipline._id}>{discipline.name}</li>
                 })}
             </ul>
+                </div>
             <Link to="/discipline/new"> AddDiscipline</Link>
+            </div>
+            </div>
         </div>
     )
     }

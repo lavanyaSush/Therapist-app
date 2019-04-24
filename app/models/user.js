@@ -58,7 +58,7 @@ userSchema.pre('validate',function(next){
            
         }
         else{
-            User.role='customer'
+            User.role='user'
             next()
            
         }
@@ -86,6 +86,7 @@ userSchema.pre('save', function (next) {
 
 userSchema.statics.findByEmailAndPassword = function (email, password) {
     const User = this
+    console.log('in find by email and password',User)
     return User.findOne({ email })
         .then((user) => {
             if (user) {
@@ -95,6 +96,7 @@ userSchema.statics.findByEmailAndPassword = function (email, password) {
                         console.log(result)
                         if (result) {
                             return new Promise((resolve, reject) => {
+                                console.log('sending user',user)
                                 resolve(user)//Promise.resolve(user)
                             })
                         }
@@ -124,12 +126,19 @@ userSchema.statics.findByEmailAndPassword = function (email, password) {
         })
 }
 userSchema.methods.generateToken = function () {
+    console.log('entered generate token ')
     const user = this
+    console.log('in generate token user information',user)
     const tokenData = {
         userId: user._id,
+        username:user.username,
+        email:user.email,
+        role:user.role
     }
+    console.log('after tokendata generation')
+    console.log('in generate token method tokendata',tokenData)
     const token = jwt.sign(tokenData, 'dct@welt433')
-    //console.log(token)
+    console.log('in generate token',token)
     user.tokens.push({ token })
     return user.save().then((user) => {
         return { token }

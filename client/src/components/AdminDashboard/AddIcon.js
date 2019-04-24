@@ -36,6 +36,9 @@ class AddIcon extends React.Component{
     render(){
         return(
             <div>
+                 <div className="container">
+                <div className="row">
+                <div className="col">
                 <h2>Add Icon</h2>
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
@@ -52,6 +55,9 @@ class AddIcon extends React.Component{
                     </FormGroup><br/>
                     <input type="submit" value="submit"/>
                 </Form>
+                </div>
+                </div>
+                </div>
             </div>
         )
     }

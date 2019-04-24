@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {BrowserRouter,Route,Switch} from 'react-router-dom'
-import Home from './components/Home/Home'
+import NavBar from './components/Home/NavBar'
+import Footer from './components/Home/Footer'
 import Login from './components/user/Login'
-import Register from './components/user/Register'
+//import Register from './components/user/RegisternoUi'
 import AddChild from './components/child/AddChild'
 import AddCategory from './components/AdminDashboard/AddCategory'
 import AddSubCategory from './components/AdminDashboard/AddSubCategory';
@@ -20,46 +21,49 @@ import ListDiscipline from './components/AdminDashboard/ListDiscipline'
 import AddDiscipline from './components/AdminDashboard/AddDiscipline'
 import AddAssesmentCategory from './components/AdminDashboard/AddAssesmentCategory'
 import ListAssesmentCategory from './components/AdminDashboard/ListAssesmentCategory'
-import Showquestions from './components/child/ShowQuestions'
+import ShowAssesment from './components/child/ShowAssesment'
 import ShowQuestions from './components/child/ShowQuestions';
+import ChildAssesmentResult from './components/child/ShowAssesmentResult'
+import Register from './components/user/Register'
 class App extends Component {
   render() {
+    const style = {
+      background: '#f2f2f2',
+      height: '550px'
+    }
     return (
       <BrowserRouter>
-      
-        <div className="container">
-        <div className="row">
-        <div className="col-md-8">
-        <h2>Welcome to Therapist App</h2>
-        </div>
-        <div className="col-md-4">
-        <Home/>
-        </div>
-        </div>
+     
+       <NavBar/>
+       <div >
+       
         <Switch>
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/>
-        <Route path="/child/new" component={AddChild}/>
+        <Route path="/child/new" component={AddChild}exact={true}/>
         <Route path="/category/new" component={AddCategory}/>
         <Route path="/subcategory/new" component={AddSubCategory}/>
         <Route path="/discipline/list" component={ListDiscipline}/>
         <Route path="/discipline/new" component={AddDiscipline}/>
         <Route path="/assesmentCategory/new" component={AddAssesmentCategory}/>
         <Route path="/assesmentCategory/list" component={ListAssesmentCategory}/>
-        <Route path="/questions/list" component={ShowQuestions}/>
+        <Route path="assesment/questions/list" component={ShowQuestions}/>
+        <Route path="/assesment/:id" component={ShowAssesment}/>
         <Route path="/option/new" component={AddOption}/>
         <Route path="/icon/new" component={AddIcon}/>
         <Route path="/question/new" component={AddQuestion}/>
         <Route path="/category/list" component={ListCategories}/>
         <Route path="/subcategory/list" component={ListSubCategory}/>
         <Route path="/child/list" component={ChildList} exact={true}/>
-        <Route path="/child/:id" component={ShowChild} exact={true}/>
+        <Route path="/child/:id/assesment" component={ShowChild} exact={true}/>
+        <Route path="/child/:id/assesment/:id" component={ChildAssesmentResult} />
         <Route path="/child/edit/:id" component={EditChild} exact={true}/>
         <Route path="/child/assesment/new" component={AddAssesment} exact={true}/>
-        <Route path="/user/logout" component={Logout}/>
+        <Route path="/logout" component={Logout}/>
         </Switch>
         
       </div>
+      {/* <Footer/> */}
       </BrowserRouter>
       
     );

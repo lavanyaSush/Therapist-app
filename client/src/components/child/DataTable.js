@@ -31,11 +31,10 @@ class DataDisplay extends React.Component{
     render(){
             var columns = [
             { title: 'Name', prop: 'name'  },
-            { title: 'Age', prop: 'age' },
             { title: 'Gender', prop: 'gender' },
             {title:'MajorConcerns',prop:'majorConcerns'},
             {title:'Email',prop:'email'},
-            {title:'Photo',prop:'childPhoto'}
+           
 
           ];
           return(

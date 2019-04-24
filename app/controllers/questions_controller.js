@@ -21,6 +21,7 @@ router.get('/subcategory/:id',(req,res)=>{
     .catch((err)=>{
         res.send(err)
     })
+
 })
 //route to add a question 
 router.post('/', (req, res) => {
@@ -61,6 +62,7 @@ router.put('/:id', (req, res) => {
 router.get('/:id', (req, res) => {
     const id = req.params.id
     Question.findById({ _id: id })
+    .populate('options.option')
         .then((question) => {
             if (question) {
                 res.send(question)

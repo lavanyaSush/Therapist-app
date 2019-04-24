@@ -5,7 +5,11 @@ const { AssesmentResult } = require('../models/assesmentresults')
 //route to get assesmentResult detials
 router.get('/', (req, res) => {
     AssesmentResult.find()
-        .then((assesmentResult) => {
+    .populate('assesment')
+    .populate('results.questions.question')
+    .populate('results.questions.option')
+    .populate('results.subcategory')
+    .then((assesmentResult) => {
             res.send(assesmentResult)
         })
         .catch((err) => {
@@ -34,9 +38,16 @@ router.post('/', (req, res) => {
 //route - to get a assesmentResult by ID
 router.get('/:id', (req, res) => {
     const id = req.params.id
-    AssesmentResult.findById({ _id: id })
+    console.log(id)
+    AssesmentResult.findOne({ assesment: id })
+        
+        .populate('results.questions.question')
+        .populate('results.questions.option')
+        .populate('results.subcategory')
+        .populate('assesment')
         .then((assesmentResult) => {
             if (assesmentResult) {
+               // console.log(assesmentResult)
                 res.send(assesmentResult)
             } else {
                 res.send({})
@@ -51,17 +62,39 @@ router.get('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
     const body = req.body
     const id = req.params.id
-    AssesmentResult.findByIdAndUpdate({ _id: id }, body, { new: true })
-        .then((assesmentResult) => {
-            if (assesmentResult) {
-                res.send(assesmentResult)
-            } else {
-                res.send({})
+    console.log('sc',body.subcategory, 'q', body.question, 'o', body.option)
+    AssesmentResult.findOne({ assesment: id })
+        .then(assessmentResult => {
+            // 
+            //
+            // subCategoryQuestion.option = body.option 
+            const resultSubCategory = assessmentResult.results.find(result => result.subcategory == body.subcategory)
+            if(body.rawScore){
+                resultSubCategory.rawScore=body.rawScore
             }
+            else{
+            const question = resultSubCategory.questions.find(question => question.question == body.question)
+            question.option = body.option 
+            }
+            assessmentResult.save()
+                .then((result) => {
+                    res.send({
+                        result,
+                        notice: 'success'
+                    })
+                })
         })
-        .catch((err) => {
-            res.send(err)
-        })
+    // AssesmentResult.findOneAndUpdate({ assesment: id }, body, { new: true })
+    //     .then((assesmentResult) => {
+    //         if (assesmentResult) {
+    //             res.send(assesmentResult)
+    //         } else {
+    //             res.send({})
+    //         }
+    //     })
+    //     .catch((err) => {
+    //         res.send(err)
+    //     })
 })
 
 //route - to delete a record by Id

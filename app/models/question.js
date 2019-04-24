@@ -12,9 +12,17 @@ const questionSchema = new Schema({
         ref: 'SubCategory',
         required:true
     },
-    options: {
-        type: [Schema.Types.ObjectId],
-        ref:'Option'
+    options:{
+        type:[
+            {
+                option:{
+                    type:Schema.Types.ObjectId,
+                ref:'Option'
+                }
+            }
+
+        ]
+         
     },
     thresholdKey: {
         type: String,

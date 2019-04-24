@@ -1,75 +1,35 @@
 import React from 'react'
-import {Form,FormGroup,Label,Input} from 'reactstrap'
+//import axios from '../axios/config';
 import axios from '../../config/axios';
-class AddCategory extends React.Component{
-    constructor(){
-        super()
-        this.state={
-            name:'',
-            assesmentCategories:[],
-            assesmentCategory:''
-           
-        }
+import CategoryForm from './CategoryForm'
+//import { Link } from 'react-router-dom'
+
+
+class AddCategory extends React.Component {
+
+    handleSubmit = (data) => {
+        axios.post("/category", data)
+            .then(response => {
+                const data = response.data
+                console.log(data)
+                this.props.history.push("/category/list")
+
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
-    componentDidMount(){
-        axios.get('/assesmentCategory')
-        .then((response)=>{
-            this.setState(()=>({assesmentCategories:response.data}))
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-    }
-    handleassesmentCategory=(event)=>{
-        const assesmentCategory=event.target.value
-        this.setState(()=>({assesmentCategory}))
-    }
-    handleName=(event)=>{
-        const name=event.target.value
-        this.setState(()=>({name}))
-    }
-    handleSubmit=(event)=>{
-        event.preventDefault()
-        const formData={
-            name:this.state.name,
-            assesmentCategory:this.state.assesmentCategory
-        }
-        console.log(formData)
-        axios.post('/category',formData)
-        .then((response)=>{
-            console.log('response from server',response.data)
-            this.setState(()=>({name:''}))
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-        
-    }
-    render(){
-        return(
+
+    render() {
+        return (
             <div>
-                <h2>Add Category </h2>
-                <Form onSubmit={this.handleSubmit}>
-                {/* <FormGroup>
-                        <Label>Select  assesmentCategory
-                            <select value={this.state.assesmentCategory} onChange={this.handleassesmentCategory}>
-                                <option value="select">select</option>
-                                {this.state.assesmentCategories.map((assesmentCategory)=>{
-                                    return <option key={assesmentCategory._id} value={assesmentCategory._id}>{assesmentCategory.name}</option>
-                                }) }
-                                
-                            </select>
-                        </Label>
-                    </FormGroup> */}
-                    <FormGroup>
-                        <Label>name
-                            <Input type="text" value={this.state.name} onChange={this.handleName}/><br/>
-                        </Label>
-                    </FormGroup>
-                    <input type="submit" value="submit"/>
-                </Form>
+                {/* <h2>add</h2> */}
+                <CategoryForm handleSubmit={this.handleSubmit} title="Add New Category" />
+              
+
             </div>
         )
+
     }
 }
 export default AddCategory

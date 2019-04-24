@@ -1,7 +1,11 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
-const port = 3001
+//const port = 3001
+const port = process.env.PORT || 5000
+
+const path = require('path')
+app.use(express.static(path.join(__dirname, 'client/build')))
 app.use(express.json())
 app.use(cors())
 
@@ -23,7 +27,9 @@ require('./config/database')
 app.get('/', (req, res) => {
     res.send('welcome to therapist-code')
 })
-
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'))
+  })  
 app.use('/public/uploads',express.static("public/uploads"))
 app.use('/child', childRouter)
 app.use('/category', categoryRouter)

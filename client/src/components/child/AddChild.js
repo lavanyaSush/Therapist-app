@@ -19,7 +19,7 @@ class AddChild extends React.Component{
     render(){
         return(
             <div>
-                <ChildForm handleSubmit={this.handleSubmit}/>
+                <ChildForm handleSubmit={this.handleSubmit} title='Add Child Details'/>
                 </div>
         )
     }

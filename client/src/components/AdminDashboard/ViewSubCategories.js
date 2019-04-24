@@ -29,6 +29,7 @@ class ListSubCategory extends React.Component{
     componentDidMount(){
         axios.get('/subcategory')
         .then((response)=>{
+            console.log(response.data)
             this.setState(()=>({subCategories:response.data}))
                   
         })
@@ -39,13 +40,21 @@ class ListSubCategory extends React.Component{
     render(){
         return(
             <div>
+                <div className="container">
+                <div className="row">
+                <div className="col">
                 <h2>Subcategories list---{this.state.subCategories.length}</h2>
                 <ul>
                     {this.state.subCategories.map((subCategory)=>{
                         return <li key={subCategory._id}>{subCategory.name}</li>
                     })}
                 </ul>
+                </div>
                 <Link to="/subcategory/new">AddSubCategory</Link>
+                </div>
+                </div>
+                
+               
             </div>
         )
     }

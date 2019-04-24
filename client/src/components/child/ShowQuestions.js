@@ -1,28 +1,59 @@
 import React from 'react'
 import axios from '../../config/axios';
-import {Table} from 'reactstrap'
+//import {Table} from 'reactstrap'
 class ShowQuestions extends React.Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
-            allQuestions:[],
-            icon:''
-            
+           data:[],
+           formattedData: []
         }
     }
     componentDidMount(){
-       axios.get('assesmentResult')
-       .then((response)=>{
-           
-       })
+        console.log('id',this.props.id)
+       axios.get(`/assesmentResult/`)
+        .then(response => {
+            console.log('response from server',response.data)
+            this.setState(() => ({ data: response.data }))
+    })
+}
 
+
+    fetchResults = () => {
+        this.state.data.forEach((assessment) => {
+            assessment.results.forEach((result) => {
+                this.state.formattedData.push(result) 
+            })
+        })
     }
     
     render(){
+        console.log(this.state.data)
         return(
             <div>
-                <h2>ShowQuestions--{this.state.allQuestions.length}</h2>
-                <Table>
+                <h2>listing data-{this.state.data.length}</h2>
+{/*                 
+                { this.fetchResults()}
+                
+                <ul>
+                    { this.state.formattedData.map(function(result){
+                        return(
+                            <li>
+                                { result.subcategory.name }
+                                <ul>
+                                    { result.questions.map(rQuestion => {
+                                        return (
+                                            <li>{ rQuestion.question.title } </li> 
+                                        )
+                                    })}
+                                </ul>
+
+                            </li> 
+                        )
+                    })}
+                </ul> */}
+                
+                {/* <Table>
                     <thead>
                         <tr>
                             <th>#</th>
@@ -41,7 +72,7 @@ class ShowQuestions extends React.Component{
                             </tr>
                         })}
                     </tbody>
-                </Table>
+                </Table> */}
             </div>
         )
     }

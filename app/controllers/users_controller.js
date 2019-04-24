@@ -14,8 +14,10 @@ router.post('/register', (req, res) => {
         })
 })
 router.post('/login', (req, res) => {
+    console.log('in login',req.body.email,req.body.password)
     User.findByEmailAndPassword(req.body.email, req.body.password)
         .then((user) => {
+            console.log('in .then of login response came',user)
             return user.generateToken()
         })
         .then((token) => {
@@ -37,7 +39,7 @@ router.get('/', (req, res) => {
             res.send(err)
         })
 })
-router.get('/:id', (req, res) => {
+router.get('/:id', authenticateUser,(req, res) => {
    user.findById(req.params.id)
         .then((user) => {
             res.send(user)
@@ -46,7 +48,7 @@ router.get('/:id', (req, res) => {
             res.send(err)
         })
 })
-router.delete('/:id', (req, res) => {
+router.delete('/:id', authenticateUser,(req, res) => {
     const id = req.params.id
    User.findByIdAndDelete(id)
         .then((user) => {
@@ -59,7 +61,7 @@ router.delete('/:id', (req, res) => {
             res.send(err)
         })
 })
-router.put('/:id', (req, res) => {
+router.put('/:id', authenticateUser,(req, res) => {
     const body = req.body
     const id = req.params.id
    User.findByIdAndUpdate(id, body, { new: true })
@@ -109,8 +111,7 @@ router.delete('/logoutfromall',authenticateUser,(req,res)=>{
 
     })
     
-    //console.log('deleted')
-    //console.log(user)
+    
 })
 
 module.exports = {

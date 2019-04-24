@@ -4,6 +4,7 @@ import axios from '../../config/axios';
 import DatePicker from 'react-datepicker'
 import Select from 'react-select'
 
+
 class AddAssesment extends React.Component{
     constructor(){
         super()
@@ -21,14 +22,14 @@ class AddAssesment extends React.Component{
     componentDidMount(){
         const p1=axios.get('/child')
         const p2 = axios.get('/discipline')
-        const p3=axios.get('/assesmentCategory')
-        Promise.all([p1,p2,p3])
+        //const p3=axios.get('/assesmentCategory')
+        Promise.all([p1,p2])
         .then((response)=>{
             this.setState(()=>{
                 return{
                 children:response[0].data,
                 disciplines:response[1].data,
-                assesmentCategories:response[2].data
+                //assesmentCategories:response[2].data
                 }
             })
         })
@@ -39,7 +40,7 @@ class AddAssesment extends React.Component{
     handleChild=(child)=>{
         //const child=event.target.value
         //console.log(subchild)
-        console.log(child)
+       // console.log(child)
         this.setState(()=>({child:child.value}))
         
     
@@ -63,11 +64,12 @@ class AddAssesment extends React.Component{
              child:this.state.child,
              discipline:this.state.discipline,
              assesmentDate:this.state.assesmentDate,
-             assesmentCategory:this.state.assesmentCategory
          }
          axios.post('/assesment',formData)
          .then((response)=>{
-             console.log(response.data)
+             console.log('response',response.data)
+             let data=response.data
+             console.log(data)
             //  this.setState(()=>{
             //      return{
             //          child:'',
@@ -76,7 +78,7 @@ class AddAssesment extends React.Component{
             //          assesmentCategory:''
             //      }
             //  })
-            this.props.history.push('/questions/list')
+            this.props.history.push(`/assesment/${data._id}`)
          })
          .catch((err)=>{
              console.log(err)
@@ -90,12 +92,21 @@ class AddAssesment extends React.Component{
         })       
         return(
             <div>
+                 <div className="container">
+                <div className="row">
+                <div className="col">
+               
                 <h2>AddAssesment</h2>
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Label>select child
-                            <Select value={this.state.child} label={this.state.child}onChange={this.handleChild} 
-                            options={options}>{this.state.child}</Select>
+                            <Select  className="basic-single" 
+                             classNamePrefix="select"
+                            //  value={this.state.child} 
+                            // label={this.state.child}
+                            style={{width:'150px'}}
+                            onChange={this.handleChild} 
+                            options={options}/>
                         </Label>
                     </FormGroup>
                     <FormGroup>
@@ -117,20 +128,13 @@ class AddAssesment extends React.Component{
                             </select>
                         </Label>
                     </FormGroup>
-                    {/* <FormGroup>
-                        <Label>Select  assesmentCategory
-                            <select value={this.state.assesmentCategory} onChange={this.handleassesmentCategory}>
-                                <option value="select">select</option>
-                                {this.state.assesmentCategories.map((assesmentCategory)=>{
-                                    return <option key={assesmentCategory._id} value={assesmentCategory._id}>{assesmentCategory.name}</option>
-                                }) }
-                                
-                            </select>
-                        </Label>
-                    </FormGroup> */}
+                   
                     <input type="submit" value="submit"/>
                 </Form>
-            </div>
+               </div>
+               </div>
+               </div>
+               </div>
         )
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Table} from 'reactstrap'
 import axios from '../../config/axios';
-//import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 class TableDisplay extends React.Component{
     constructor(){
@@ -49,7 +49,7 @@ class TableDisplay extends React.Component{
             
             return <tr key={index}>
             <td>{index+1}</td>
-            <td>{child.name}</td>
+            <Link to={`/child/${child._id}/assesment`}>{<td>{child.name}</td>}</Link>
             <td>{this.calage(new Date(child.dob))}</td>
             <td>{child.gender}</td>
             <td>{child.majorConcerns}</td>

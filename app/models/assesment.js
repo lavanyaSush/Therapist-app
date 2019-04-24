@@ -35,7 +35,7 @@ assesmentSchema.post('save',function(next){
     let questionIds=[]
     let questionObject={}
      SubCategory.find()
-    .then((subcategories)=>{
+      .then((subcategories)=>{
         console.log(subcategories)
         subcategories.forEach((subcategory)=>{
             assesResult.subcategory=subcategory._id
@@ -44,17 +44,17 @@ assesmentSchema.post('save',function(next){
             for(let i=0;i<questionIds.length;i++){
                 questionObject={}
                 questionObject.question=questionIds[i]
-                //console.log(questionObject)
+                console.log(questionObject)
                 questionsArray.push(questionObject)
-                //console.log(questionsArray)
+                console.log(questionsArray)
             }
-            //console.log(questionsArray)
+            console.log(questionsArray)
             assesResult.questions=questionsArray
-            
             assesmentResult.results.push(assesResult)
             assesmentResult.save()
             .then((result)=>{
-                //console.log(result)
+                console.log(result)
+                next()
             })
             })
            
@@ -66,7 +66,7 @@ assesmentSchema.post('save',function(next){
     .catch((err)=>{
         console.log(err)
     })
-    next()
+    
 })
 const Assesment = mongoose.model('Assesment', assesmentSchema)
 module.exports = {

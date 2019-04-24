@@ -5,6 +5,8 @@ const { SubCategory } = require('../models/subcategory')
 //route to get subcatergory detials
 router.get('/', (req, res) => {
     SubCategory.find()
+    .populate('category')
+   
         .then((subcategories) => {
             res.send(subcategories)
         })
@@ -36,6 +38,7 @@ router.post('/', (req, res) => {
 router.get('/:id', (req, res) => {
     const id = req.params.id
     SubCategory.findById({ _id: id })
+    .populate('category')
         .then((subcategory) => {
             if (subcategory) {
                 res.send(subcategory)
