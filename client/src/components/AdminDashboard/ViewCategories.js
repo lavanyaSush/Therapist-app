@@ -9,8 +9,10 @@ class  ListCategories extends React.Component {
         }
     }
     componentDidMount(){
+        console.log('in component did mount')
         axios.get('/category')
         .then((response)=>{
+            console.log('response from server',response.data)
             this.setState(()=>({categories:response.data}))
         })
         .catch((err)=>{
@@ -24,12 +26,12 @@ class  ListCategories extends React.Component {
             <div className="container">
             <div className="row">
             <div className="col">
-            <h2>Listing Categories-{this.state.categories.length}</h2>
-            <ul>
+            <h2>Listing Categories-</h2>
+            {/* <ul>
                 {this.state.categories.map((category)=>{
                     return <li key={category._id}>{category.name}</li>
                 })}
-            </ul>
+            </ul> */}
             </div>
             <Link to="/category/new"> AddCategory</Link>
             </div>

@@ -2,13 +2,12 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 //const port = 3001
-const port = process.env.PORT || 5000
+ const port = process.env.PORT || 5000
 
 const path = require('path')
-app.use(express.static(path.join(__dirname, 'client/build')))
-app.use(express.json())
+ app.use(express.json())
 app.use(cors())
-
+app.use(express.static(path.join(__dirname, 'client/build')))
 const { childRouter } = require('./app/controllers/children_controller')
 const { categoryRouter } = require('./app/controllers/categories_controller')
 const { subcategoryRouter } = require('./app/controllers/subcategories_controller')
@@ -27,9 +26,7 @@ require('./config/database')
 app.get('/', (req, res) => {
     res.send('welcome to therapist-code')
 })
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/client/build/index.html'))
-  })  
+
 app.use('/public/uploads',express.static("public/uploads"))
 app.use('/child', childRouter)
 app.use('/category', categoryRouter)
@@ -44,7 +41,9 @@ app.use('/assesmentResult', assesmentResultRouter)
 app.use('/icon',iconRouter)
 app.use('/discipline',disciplineRouter)
 app.use('/assesmentCategory',assesmentCategoryRouter)
-
+app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname + '/client/build/index.html'))
+       })  
 app.listen(port, () => {
     console.log('Listening to port', port)
 })

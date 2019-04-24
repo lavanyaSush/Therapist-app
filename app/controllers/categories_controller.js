@@ -4,6 +4,7 @@ const { Category } = require('../models/category')
 
 //route to get category detials
 router.get('/', (req, res) => {
+    console.log('entered into router')
     Category.find()
     
         .then((categories) => {

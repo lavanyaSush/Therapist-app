@@ -12,7 +12,7 @@ class AddSubCategory extends React.Component {
             .then(response => {
                 const data = response.data
                 console.log(data)
-                this.props.history.push("/subcategory/list")
+                //this.props.history.push("/subcategory/list")
 
             })
             .catch(err => {
