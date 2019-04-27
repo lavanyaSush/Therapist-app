@@ -4,6 +4,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 //import Select from 'react-select'
 //import InputAdornment from '@material-ui/core/InputAdornment';
 //import CloudUploadIcon from '@material-ui/icons/CloudUpload';
@@ -13,12 +16,13 @@ import Typography from '@material-ui/core/Typography';
 //import axios from '../axios/config';
 import axios from '../../config/axios';
 import FormLabel from '@material-ui/core/FormLabel';
-import {Label} from 'reactstrap'
+//import {Label} from 'reactstrap'
 
 import { Link } from 'react-router-dom'
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+//import { FormGroup } from '@material-ui/core';
 
 const styles = theme => ({
 
@@ -68,6 +72,7 @@ const styles = theme => ({
     },
     textfield: {
         height: 5,
+        
     },
     labelRoot: {
         fontSize: 15,
@@ -243,7 +248,7 @@ class QuestionForm extends React.Component{
                                             />
                                             <FormLabel className={classes.formlabel} error={true}>{this.state.titleError}</FormLabel>
                                         </Grid>
-                                    </Grid>
+                                    </Grid> 
                                     
                                         
                                             
@@ -254,7 +259,7 @@ class QuestionForm extends React.Component{
                                             <Typography variant="button" gutterBottom>SubCategory</Typography>
                                         </Grid>
                                         <Grid item xs={7}>  
-                                        <select value={this.state.subCategory} onChange={this.handleSubCategory}>
+                                        <select value={this.state.subCategory} onChange={this.handleSubCategory} style={{width:"20rem"}}>
                                 <option value="select">select</option>
                                 {this.state.subcategories.map((subcategory)=>{
                                     return <option key={subcategory._id} value={subcategory._id}>{subcategory.name}</option>
@@ -273,9 +278,20 @@ class QuestionForm extends React.Component{
                                         {this.state.serverOptions.map((option)=>{
                                     return (
                                     <div>
-                                        <Label>{option.name}  {" "} 
-                                            <input type="checkbox"  id={option._id} value={option._id} defaultChecked={false} onChange={this.handleOption}/>
-                                        </Label>
+                                        <FormGroup>
+                                        <FormControlLabel
+                                           control={
+                                        <Checkbox
+                                            //checked={this.state.checkedA}
+                                            onChange={this.handleOption}
+                                            value={option._id}
+                                            id={option._id}
+                                            />
+                                           }
+                                           label={option.name}
+                                            
+                                      />
+                                        </FormGroup>
                                     </div>
                                     )
                                 })}
@@ -326,11 +342,11 @@ class QuestionForm extends React.Component{
                                     <Grid container spacing={0} alignItems="center" justify="center">
 
                                         <div className={classes.buttons}>
-                                        <Link to='/category/list'>
+                                        <Link to='/'>
                                             <Button
                                                 variant="contained"
                                                 color="primary"
-                                                onClick={this.handleBack}
+                                                //onClick={this.handleBack}
                                                 className={classes.button}
                                                 fullWidth>
                                                 Back

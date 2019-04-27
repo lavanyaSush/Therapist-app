@@ -7,7 +7,7 @@ import Login from './components/user/Login'
 import AddChild from './components/child/AddChild'
 import AddCategory from './components/AdminDashboard/AddCategory'
 import AddSubCategory from './components/AdminDashboard/AddSubCategory';
-import AddOption from './components/AdminDashboard/AddOptions'
+import AddOption from './components/AdminDashboard/AddOption'
 import AddIcon from './components/AdminDashboard/AddIcon'
 import AddQuestion from './components/AdminDashboard/AddQuestion'
 import ListCategories from './components/AdminDashboard/ViewCategories'
@@ -16,7 +16,7 @@ import ChildList from './components/child/ChildList'
 import ShowChild from './components/child/ShowChild'
 import EditChild from './components/child/EditChild'
 import Logout from './components/user/Logout'
-import AddAssesment from './components/child/AddAssessment'
+import AddAssesment from './components/child/AddAssesment'
 import ListDiscipline from './components/AdminDashboard/ListDiscipline'
 import AddDiscipline from './components/AdminDashboard/AddDiscipline'
 import AddAssesmentCategory from './components/AdminDashboard/AddAssesmentCategory'
@@ -25,6 +25,7 @@ import ShowAssesment from './components/child/ShowAssesment'
 import ShowQuestions from './components/child/ShowQuestions';
 import ChildAssesmentResult from './components/child/ShowAssesmentResult'
 import Register from './components/user/Register'
+import PrivateRoute from './components/Home/Routehiding'
 class App extends Component {
   render() {
     const style = {
@@ -40,26 +41,26 @@ class App extends Component {
         <Switch>
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/>
-        <Route path="/child/new" component={AddChild}exact={true}/>
-        <Route path="/category/new" component={AddCategory}/>
-        <Route path="/subcategory/new" component={AddSubCategory}/>
-        <Route path="/discipline/list" component={ListDiscipline}/>
-        <Route path="/discipline/new" component={AddDiscipline}/>
-        <Route path="/assesmentCategory/new" component={AddAssesmentCategory}/>
-        <Route path="/assesmentCategory/list" component={ListAssesmentCategory}/>
-        <Route path="assesment/questions/list" component={ShowQuestions}/>
-        <Route path="/assesment/:id" component={ShowAssesment}/>
-        <Route path="/option/new" component={AddOption}/>
-        <Route path="/icon/new" component={AddIcon}/>
-        <Route path="/question/new" component={AddQuestion}/>
-        <Route path="/category/list" component={ListCategories}/>
-        <Route path="/subcategory/list" component={ListSubCategory}/>
-        <Route path="/child/list" component={ChildList} exact={true}/>
-        <Route path="/child/:id/assesment" component={ShowChild} exact={true}/>
-        <Route path="/child/:id/assesment/:id" component={ChildAssesmentResult} />
-        <Route path="/child/edit/:id" component={EditChild} exact={true}/>
-        <Route path="/child/assesment/new" component={AddAssesment} exact={true}/>
-        <Route path="/logout" component={Logout}/>
+        <PrivateRoute exact path="/child/new" component={AddChild}exact={true}/>
+        <PrivateRoute exact path="/category/new" component={AddCategory}/>
+        <PrivateRoute exact path="/subcategory/new" component={AddSubCategory}/>
+        <PrivateRoute exact path="/discipline/list" component={ListDiscipline}/>
+        <PrivateRoute exact path="/discipline/new" component={AddDiscipline}/>
+        <PrivateRoute exact path="/assesmentCategory/new" component={AddAssesmentCategory}/>
+        <PrivateRoute exact path="/assesmentCategory/list" component={ListAssesmentCategory}/>
+        <PrivateRoute exact path="assesment/questions/list" component={ShowQuestions}/>
+        <PrivateRoute exact path="/assesment/:id" component={ShowAssesment}/>
+        <PrivateRoute exact path="/option/new" component={AddOption}/>
+        <PrivateRoute exact path="/icon/new" component={AddIcon}/>
+        <PrivateRoute exact path="/question/new" component={AddQuestion}/>
+        <PrivateRoute exact path="/category/list" component={ListCategories}/>
+        <PrivateRoute exact path="/subcategory/list" component={ListSubCategory}/>
+        <PrivateRoute exact path="/child/list" component={ChildList} exact={true}/>
+        <PrivateRoute exact path="/child/:id/assesment" component={ShowChild} exact={true}/>
+        <PrivateRoute exact path="/child/:id/assesment/:id" component={ChildAssesmentResult} />
+        <PrivateRoute exact path="/child/edit/:id" component={EditChild} exact={true}/>
+        <PrivateRoute exact path="/child/assesment/new" component={AddAssesment} exact={true}/>
+        <PrivateRoute exact path="/logout" component={Logout}/>
         </Switch>
         
       </div>

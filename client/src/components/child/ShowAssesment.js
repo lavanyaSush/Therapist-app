@@ -1,6 +1,9 @@
 import React from 'react'
 import {Table,Label} from 'reactstrap'
 import axios from '../../config/axios';
+import Radio from '@material-ui/core/Radio';
+
+import { FormControlLabel } from '@material-ui/core';
 class ShowAssesment extends React.Component{
     constructor(props){
         super(props)
@@ -8,7 +11,8 @@ class ShowAssesment extends React.Component{
             assesmentDetails:[],
             options:[],
             rawTotal:0,
-            resultSubCategory:''
+            resultSubCategory:'',
+            optionValue:''
             
         }
     }
@@ -29,12 +33,13 @@ class ShowAssesment extends React.Component{
         
     }
     handleOption=(event) =>{
-       
+       console.log('target',event.target.attributes)
         const question = event.target.attributes[2].nodeValue
+       // console.log('question',question)
         const subcategory = event.target.attributes[3].nodeValue
         this.setState(()=>({resultSubCategory:subcategory}))
         const option=event.target.value
-        const id=event.target.id
+        const id=event.target.oid
 
         console.log('option value',option)
         //console.log('added',this.state.optionAdded)
@@ -85,7 +90,7 @@ class ShowAssesment extends React.Component{
                  <h2>Showing </h2>
                 
                            {this.state.assesmentDetails.map((data,index)=>{
-                               console.log('data',data)
+                               //console.log('data',data)
                                return(
                                <div key={index}>
                                <Table >
@@ -103,17 +108,23 @@ class ShowAssesment extends React.Component{
                                </thead>
                                <tbody>
                                   {data.questions.map((que,index)=>{
-                                      console.log('que',que)
-                                      console.log('que question',que.question)
                                       return <tr key={index}>
                                       <td>{index}</td>
                                       <td>{que.question.title}</td>
                                       {this.state.options.map((option,index)=>{
                                           return<td key={index}>
+                                          {/* <Radio  
+                                          id={option._id}
+                                          question={que.question._id} subcategory={data.subcategory._id}  value={option.points}
+                                          onChange={this.handleOption}key={index}
+                                           />
+                                         */}
                                           <Label>
                                            <input type="radio"  id={option._id} 
                                            question={que.question._id} subcategory={data.subcategory._id} 
-                                           value={option.points} onChange={this.handleOption}key={index}/>
+                                           value={option.points} onChange={this.handleOption}key={index}
+                                           name={que.question.title}
+                                           />
                                            </Label>
                                           </td>
                                       })}
@@ -130,30 +141,7 @@ class ShowAssesment extends React.Component{
                                )
                            })}
                             <> <form onSubmit={this.handleFinalSubmit}><input type="submit"value="submit"/></form></>
-                                
-                               
-                  
-            {/* <ul>
-            {this.state.assesmentDetails.map((data,index)=>{
-                return <li key={index}>{data.subcategory.name}
-                
-                <ul>
-                    {data.questions.map((que,index)=>{
-                        return <li key={index}>{que.question.title}
-                        {this.state.options.map((option,index)=>{
-                            return <>
-                        <input type="radio"  id={option._id} question={que.question._id} subcategory={data.subcategory._id} value={option.points} onChange={this.handleOption}key={index}/>{option.name}{"  "}</>
-                        })} 
-                    </li>
-                    })}
-                </ul>
-                <> <form onSubmit={this.handleSubmit}><input type="submit"value="next"/></form></>
-                </li>
-               
-            })}
-            <> <form onSubmit={this.handleFinalSubmit}><input type="submit"value="submit"/></form></>
-            </ul> */}
-            </div>
+           </div>
         )
     }
 }

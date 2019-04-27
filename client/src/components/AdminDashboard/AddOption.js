@@ -94,94 +94,48 @@ const styles = theme => ({
 });
 
 
-
-class SubCategoryForm extends React.Component {
-    constructor(props) {
-        super(props)
-        //console.log(props.imageUrl)
-
-        this.state = {
-            name: props.name ? props.name : '',
-            categories:[],
-            category:'',
-
-            nameError: '',
-
-
+class AddOption extends React.Component{
+    constructor(){
+        super()
+        this.state={
+            name:'',
+            nameError:'',
+            points:'',
+            pointsError:''
         }
     }
-    componentDidMount(){
-        axios.get('/category')
+    handleName=(event)=>{
+        const name=event.target.value
+       // console.log(name)
+        this.setState(()=>({name}))
+    }
+    handlePoints=(event)=>{
+        const points=event.target.value
+        this.setState(()=>({points}))
+    }
+    handleSubmit=(event)=>{
+        event.preventDefault()
+        //console.log('entered submit')
+        const formData={
+            name:this.state.name,
+            points :this.state.points
+        }
+        console.log(formData)
+        axios.post('/option',formData)
         .then((response)=>{
             console.log(response.data)
-            const categories = response.data
-            this.setState(()=>({categories}))
-
+            this.setState(()=>{
+                return{
+                    name:'',
+                    points :''
+                }
+            })
         })
         .catch((err)=>{
             console.log(err)
         })
     }
-    handleCategory=(event)=>{
-        const category=event.target.value
-        console.log(category)
-        this.setState(()=>({category}))
-    }
-    handleChange = (e) => {
-        const name = e.target.name
-        const value = e.target.value
-        this.setState(() => ({ [name]: value }))
-
-    }
-
-    handleSelect = (data) => {
-        this.setState(() => ({ category: data }))
-    }
-
-
-
-    validate = () => {
-        let isError = false;
-        const errors = {
-            nameError: '',
-
-
-        }
-
-        if (this.state.name.length === 0) {
-            isError = true;
-            errors.nameError = "Provide Name ";
-        }
-
-        this.setState({
-            ...this.state,
-            ...errors
-        })
-        return isError
-    }
-
-    handleSubmit = (e) => {
-
-        e.preventDefault()
-
-        const err = this.validate()
-        if (!err) {
-
-            const { name } = this.state
-            const {category} = this.state
-            const formData = {
-              name,
-              category
-            }
-           // console.log(formData)
-            this.props.handleSubmit(formData)
-            // console.log(this.state)
-
-        }
-
-    }
-
-    render() {
+    render(){
         const { classes } = this.props;
        // console.log(this.props)
         return (
@@ -191,7 +145,7 @@ class SubCategoryForm extends React.Component {
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Typography gutterBottom component="h5" variant="h5" align="center">
-                            {this.props.title}
+                            Add Option
                         </Typography>
                         <React.Fragment>
                             <hr />
@@ -206,7 +160,7 @@ class SubCategoryForm extends React.Component {
                                                 id="name"
                                                 name="name"
                                                 value={this.state.name}
-                                                onChange={this.handleChange}
+                                                onChange={this.handleName}
                                                 fullWidth
                                                 autoComplete="pname"
                                             />
@@ -216,63 +170,61 @@ class SubCategoryForm extends React.Component {
                                     
                                         
                                             <FormLabel className={classes.formlabel} error={true}>{this.state.nameError}</FormLabel>
-                                       
                                            
-                                            <Grid container spacing={24} className={classes.container} alignItems="baseline" justify="center" >
+                                    <Grid container spacing={24} className={classes.container} alignItems="baseline" justify="center" >
                                         <Grid item xs={2} className={classes.label} >
-                                            <Typography variant="button" gutterBottom>Category</Typography>
+                                            <Typography variant="button" gutterBottom>Points</Typography>
                                         </Grid>
-                                        <Grid item xs={7}>          
-                            <select  value={this.state.category} onChange={this.handleCategory}>
-                            <option value="select">select</option>
-                            {this.state.categories.map((category)=>{
-                                return (
-                                
-                                <option key={category._id}  name={category._id}value={category._id}>{category.name}</option>
-                                )
-                            })}
-                                
-                            </select>
-                        </Grid>
-               
-                </Grid>
+                                        <Grid item xs={7}>
+                                            <TextField
+                                                id="points"
+                                                name="points"
+                                                value={this.state.points}
+                                                onChange={this.handlePoints}
+                                                fullWidth
+                                                autoComplete="pname"
+                                            />
+                                            <FormLabel className={classes.formlabel} error={true}>{this.state.pointsError}</FormLabel>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid container spacing={0} alignItems="center" justify="center">
 
-                <Grid container spacing={0} alignItems="center" justify="center">
+                                    <div className={classes.buttons}>
+                                    <Link to='/category/list'>
+                                    <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={this.handleBack}
+                                    className={classes.button}
+                                    fullWidth>
+                                    Back
+                                    </Button>
+                                    </Link>
 
-                    <div className={classes.buttons}>
-                    <Link to='/subcategory/list'>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            //onClick={this.handleBack}
-                            className={classes.button}
-                            fullWidth>
-                            Back
-                        </Button>
-                        </Link>
+                                    <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={this.handleSubmit}
+                                    className={classes.button}
+                                    fullWidth
+                                    > Submit
+                                    </Button>
+                                    </div>
+                                    </Grid>
+                                    </form>
+                                    </React.Fragment>
 
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={this.handleSubmit}
-                            className={classes.button}
-                            fullWidth
-                        > Submit
-                        </Button>
-                    </div>
-                </Grid>
-            </form>
-             </React.Fragment>
-            </React.Fragment>
-            </Paper>
-        </main>
-    </React.Fragment>
-        );
-    }
+                                    </React.Fragment>
+
+                                    </Paper>
+                                    </main>
+                                    </React.Fragment>
+                                    );
+                                    }
 }
 
-SubCategoryForm.propTypes = {
-    classes: PropTypes.object.isRequired,
+AddOption.propTypes = {
+classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SubCategoryForm);
+export default withStyles(styles)(AddOption);

@@ -218,7 +218,7 @@ class CategoryForm extends React.Component {
                                             <Button
                                                 variant="contained"
                                                 color="primary"
-                                                onClick={this.handleBack}
+                                                //onClick={this.handleBack}
                                                 className={classes.button}
                                                 fullWidth>
                                                 Back

@@ -1,7 +1,8 @@
 import React from 'react'
 //import axios from '../axios/config';
 import axios from '../../config/axios';
-import QuestionForm from './QuestionForm'
+//import QuestionForm from './QuestionForm'
+import QuestionForm from './QForm'
 //import { Link } from 'react-router-dom'
 
 

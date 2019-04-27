@@ -27,11 +27,11 @@ class  ListCategories extends React.Component {
             <div className="row">
             <div className="col">
             <h2>Listing Categories-</h2>
-            {/* <ul>
+            <ul>
                 {this.state.categories.map((category)=>{
                     return <li key={category._id}>{category.name}</li>
                 })}
-            </ul> */}
+            </ul>
             </div>
             <Link to="/category/new"> AddCategory</Link>
             </div>

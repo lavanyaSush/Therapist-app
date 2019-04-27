@@ -3,14 +3,25 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 const NavBar =(props)=>{
     const {isAuth,user} =props.user
-    //console.log('user from Home',user)
+    console.log('user from Home',user)
     return(
         
         <div>
-            <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <a class="navbar-brand" href="#">Therapist App</a>
+            <nav className="navbar navbar-expand-lg navbar-primary" style={{ background: "#000066" }}>
+                {/* <i className="material-icons lg-48" style={{ color: '#ffcc66' }}>
+                    gavel
+                </i> */}
+                <Link className="navbar-brand" to='/'><img src={process.env.PUBLIC_URL + '/icon.png'} height="40px" width="40px" alt="" />{' '}Therapist App</Link>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav mr-auto">
+
+                    </ul>
                 
-            <div >
+            <div className="form-inline my-2 my-lg-0">
             {!isAuth?
             <div>
             <Link className="btn btn-primary" to="/register">Register     </Link>
@@ -44,20 +55,7 @@ const NavBar =(props)=>{
                <li className="nav-item ">
                 <Link className="btn btn-primary" to='/logout' style={{float:'right'}}role="button">LogOut</Link></li></ul></>
         }
-            {/* {isAuth&&
-            <div>
-                          
-                <Link to="/option/new">AddOption</Link><br/>
-                <Link to="/icon/new">AddIcon</Link><br/>
-                <Link to="/question/new">AddQuestion</Link><br/>
-                 <Link to="/category/list"> ViewCategory </Link><br/>
-                <Link to="/subcategory/list"> ViewSubCategories</Link><br/> 
-                <Link to="/discipline/list">ListDisciplines</Link><br/>
-                <Link to="/child/list">ChildList</Link><br/>
-                <Link to="/child/assesment/new">AddAssesment</Link><br/>
-                <Link to="/assesmentCategory/list">ListAssesmentCategory</Link><br/>
-                <Link to="/user/logout">Logout</Link>
-            </div>} */}
+           </div>
             </div>
            
             </nav>

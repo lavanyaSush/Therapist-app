@@ -1,7 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import TableDisplay from './TableDisplay'
-// import DataDisplay from '../child/DataTable'
+//import TableDisplay from './TableDisplay'
+import DataDisplay from '../child/DataTable'
+import{Button} from 'reactstrap'
 class ChildList extends React.Component{
     
     render(){
@@ -9,9 +10,9 @@ class ChildList extends React.Component{
         return(
             <div>
                 
-                <TableDisplay />
-                {/* <DataDisplay/> */}
-                <Link to="/child/new">AddChild </Link><br/>
+                {/* <TableDisplay /> */}
+                <DataDisplay/>
+               <Button> <Link to="/child/new">AddChild </Link></Button>
                 
             </div>
         )

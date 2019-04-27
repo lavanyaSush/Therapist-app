@@ -18,7 +18,7 @@ class  Logout extends React.Component{
             this.props.dispatch(removeUser({}))
             localStorage.removeItem('authToken')
 
-            this.props.history.push('/user/login')
+            this.props.history.push('/login')
         })
         .catch((err)=>{
             console.log(err)
@@ -26,6 +26,7 @@ class  Logout extends React.Component{
         })
     }
     render(){
+        console.log('in logout')
         return(
             <div>
            

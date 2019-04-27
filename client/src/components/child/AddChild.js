@@ -5,7 +5,7 @@ import axios from '../../config/axios';
 class AddChild extends React.Component{
     
     handleSubmit=(formData)=>{
-        console.log(formData)
+        console.log('formData',formData)
         axios.post('/child',formData)
         .then((response)=>{
             console.log(response.data)

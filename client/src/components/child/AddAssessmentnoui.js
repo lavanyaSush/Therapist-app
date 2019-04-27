@@ -4,7 +4,6 @@ import axios from '../../config/axios';
 import DatePicker from 'react-datepicker'
 import Select from 'react-select'
 
-
 class AddAssesment extends React.Component{
     constructor(){
         super()
@@ -104,9 +103,11 @@ class AddAssesment extends React.Component{
                              classNamePrefix="select"
                             //  value={this.state.child} 
                             // label={this.state.child}
-                            style={{width:'150px'}}
+                           
                             onChange={this.handleChild} 
-                            options={options}/>
+                            options={options}
+                            formatGroupLabel={formatGroupLabel}
+                            />
                         </Label>
                     </FormGroup>
                     <FormGroup>

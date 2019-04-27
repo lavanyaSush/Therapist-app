@@ -1,7 +1,7 @@
 import React from 'react'
 //import {Table} from 'reactstrap'
 import axios from '../../config/axios';
-//import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {DataTable}  from 'react-data-components'
 class DataDisplay extends React.Component{
     constructor(){
@@ -30,7 +30,7 @@ class DataDisplay extends React.Component{
     }
     render(){
             var columns = [
-            { title: 'Name', prop: 'name'  },
+           { title: 'Name',prop: 'name'  },
             { title: 'Gender', prop: 'gender' },
             {title:'MajorConcerns',prop:'majorConcerns'},
             {title:'Email',prop:'email'},
