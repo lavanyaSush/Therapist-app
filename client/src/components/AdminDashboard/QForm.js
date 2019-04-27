@@ -91,16 +91,15 @@ class QuestionForm extends React.Component{
     }
     componentDidMount(){
         const p1= axios.get('/subcategory')
-        const p2 = axios.get('/icon')
+        //const p2 = axios.get('/icon')
         const p3=axios.get('/option')
         //const p4=axios.get('/category')
-        Promise.all([p1,p2,p3])
+        Promise.all([p1,p3])
         .then((response)=>{
             this.setState(()=>{
                 return{
                     subcategories:response[0].data,
-                    icons:response[1].data,
-                    serverOptions:response[2].data
+                    serverOptions:response[1].data
                 }
             })
         })
@@ -229,7 +228,7 @@ class QuestionForm extends React.Component{
                 <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend">Options</FormLabel>
                 {this.state.serverOptions.map((option)=>{
-                                    if(option.name==='always'||option.name==='frequently'||option.name==='occasionally'){
+                                    
                                     return (
                                     <div>
                                         <FormGroup>
@@ -249,33 +248,9 @@ class QuestionForm extends React.Component{
                                     </div>
                                     )
                                         }
-                                })}
+                                )}
                 </FormControl>
-                <FormControl component="fieldset" className={classes.formControl}>
-                <FormLabel component="legend">Options</FormLabel>
-                {this.state.serverOptions.map((option)=>{
-                                    if(option.name==='seldom'||option.name==='never'){
-                                    return (
-                                    <div>
-                                        <FormGroup>
-                                        <FormControlLabel
-                                           control={
-                                        <Checkbox
-                                            //checked={this.state.checkedA}
-                                            onChange={this.handleOption}
-                                            value={option._id}
-                                            id={option._id}
-                                            />
-                                           }
-                                           label={option.name}
-                                            
-                                      />
-                                        </FormGroup>
-                                    </div>
-                                    )
-                                        }
-                                })}
-                </FormControl>
+               
                 <FormControl className={classes.formControl} fullWidth>
                     <InputLabel htmlFor="subcategory">ThresholdKey</InputLabel>
                     <Select
