@@ -1,11 +1,14 @@
 import React from 'react'
 import axios from '../../config/axios';
 import {Table} from 'reactstrap'
+import {Button} from 'reactstrap'
+import {Link} from 'react-router-dom'
 class ChildAssesmentResult extends React.Component{
     constructor(){
         super()
         this.state={
-            finalResult:[]
+            finalResult:[],
+            childId:''
         }
     }
     componentDidMount(){
@@ -13,8 +16,9 @@ class ChildAssesmentResult extends React.Component{
         const id=this.props.match.params.id
         axios.get(`/assesmentResult/${id}`)
         .then((response)=>{
-            console.log(response.data.results)
-            this.setState(()=>({finalResult:response.data.results}))
+            console.log(response.data.assesment._id)
+            console.log('in show assesment result',response.data)
+            this.setState(()=>({finalResult:response.data.results,childId:response.data.assesment.child}))
         })
         .catch((err)=>{
             console.log(err)
@@ -24,6 +28,8 @@ class ChildAssesmentResult extends React.Component{
         return(
             <div>
                 <h3>In Child Assesment Result</h3>
+               <Link to={`/assesmentResult/edit/${this.props.match.params.id}`} ><Button color="primary" >Edit</Button></Link>
+               <Link to={`/child/${this.state.childId}/assesment`}><Button color="danger">Back</Button></Link>
                 {this.state.finalResult.map((result,index)=>{
                     return(
                         <div>
@@ -49,23 +55,7 @@ class ChildAssesmentResult extends React.Component{
 
                     )
                 })}
-                
-                {/* <ul>
-                {this.state.finalResult.map((result,index)=>{
-                    return <li key={index}>{result.subcategory.name}
-                    <ul>
-                        {result.questions.map((que,index)=>{
-                            return <li key={index}>{que.question.title}....{que.option.name}
-                           </li>
-                        })}
-                    </ul>
-                   <h4>RawScore... {result.rawScore}</h4>
-                    </li>
-                  // console.log(result.subcategory.name)
-                })}
-
-                </ul> */}
-            </div>
+               </div>
         )
     }
 }

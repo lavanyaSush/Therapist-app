@@ -19,10 +19,11 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 
 import {connect} from 'react-redux'
+import { FormGroup } from '@material-ui/core';
 
 const styles = theme => ({
   main: {
-    width: '70%',
+    width: '800%',
     display: 'block', // Fix IE 11 issue.
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
@@ -69,9 +70,9 @@ class ChildForm extends React.Component{
             name :props.name? props.name:'',
             nameError :'',
             gender :props.gender? props.gender:'',
-            age :'',
-            ageError :'',
-            dob :props.dob? props.dob:'',
+            genderError:'',
+            dob :props.dob?props.dob:'',
+            dobError:'',
             majorConcerns:props.majorConcerns? props.majorConcerns:'',
             majorConcernsError :'',
             motherName :props.motherName? props.motherName:'',
@@ -104,6 +105,10 @@ class ChildForm extends React.Component{
             isError = true
             errors.motherNameError = 'mother name must be atleast 3 characters'
         }
+        if(this.state.majorConcerns.length===0){
+          isError=true
+          errors.majorConcernsError='enter major concerns'
+        }
         if(this.state.phoneNumber.length<10){
             isError = true
             errors.phoneNumberError = 'phone number should be 10 numbers'
@@ -111,6 +116,14 @@ class ChildForm extends React.Component{
         if(this.state.location.length===0){
             isError = true
             errors.locationError = 'location should not be empty'
+        }
+        if(this.state.gender.length===0){
+          isError=true
+          errors.genderError='choose gender'
+        }
+        if(this.state.dob.length===0){
+          isError=true
+          errors.dobError='select date of birth'
         }
         if(isError){
             this.setState(()=>({...this.state,...errors}))
@@ -121,44 +134,55 @@ class ChildForm extends React.Component{
     handleSubmit=(event)=>{
         event.preventDefault()
        
-        const formData = new FormData()
-        console.log('in handle submit this.state',this.state)
-        formData.append('name' , this.state.name)
-        console.log('formdata name',formData.name)
-        formData.append('gender' ,this.state.gender)
-        formData.append('dob' ,this.state.dob)
-        formData.append('majorConcerns',this.state.majorConcerns)
-        formData.append('motherName',this.state.motherName)
-        formData.append('phoneNumber',this.state.phoneNumber)
-        formData.append('location',this.state.location)
-        formData.append('email',this.state.email)
-        formData.append('childPhoto',this.state.childPhoto)
+        // const formData = new FormData()
+        // console.log('in handle submit this.state',this.state)
+        // formData.append('name' , this.state.name)
+        // console.log(this.state.name)
+        // console.log('formdata name',formData.name)
+        // formData.append('gender' ,this.state.gender)
+        // formData.append('dob' ,this.state.dob)
+        // formData.append('majorConcerns',this.state.majorConcerns)
+        // formData.append('motherName',this.state.motherName)
+        // formData.append('phoneNumber',this.state.phoneNumber)
+        // formData.append('location',this.state.location)
+        // formData.append('email',this.state.email)
+        // formData.append('childPhoto',this.state.childPhoto)
+        const formData={
+          name:this.state.name,
+          motherName:this.state.motherName,
+          location:this.state.location,
+          gender:this.state.gender,
+          dob:this.state.dob,
+          phoneNumber:this.state.phoneNumber,
+          email:this.state.email,
+          majorConcerns:this.state.majorConcerns
+        }
         //console.log(formData)
-       // const errors =this.checkForErrors()
-        //if(!errors){
+        const errors =this.checkForErrors()
+       if(!errors){
         this.props.handleSubmit(formData)
         this.setState(()=>{
             return{
                 name : '',
-               // nameError :'',
+                nameError :'',
                 gender :'',
                 dob :'',
                 majorConcerns:'',
-                //majorConcernsError :'',
+                majorConcernsError :'',
                 motherName :'',
-                //motherNameError :'',
+                motherNameError :'',
                 phoneNumber:'',
-                //phoneNumberError :'',
+                phoneNumberError :'',
                 location :'',
-                //locationError:'',
+                locationError:'',
                 email:'',
-                //emailError :'',
+                emailError :'',
                 childPhoto:null
             }
         
         
         })
-    //}
+    }
     }
     
       handleDate=(event)=>{
@@ -198,50 +222,53 @@ render(){
           Add Child
         </Typography>
         <form className={classes.form} >
+        <FormGroup>
         <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="name">Child Name</InputLabel>
             <Input id="name" name="name" autoComplete="name" value={this.state.name}  onChange={this.handleChange} autoFocus />
             <p style={{ fontSize: '13px' }} className="text-danger">{this.state.nameError}</p>
-          </FormControl>
+            </FormControl>
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Mother Name</InputLabel>
-            <Input id="motherName" name="motherName" autoComplete="motherName" value={this.state.motherName}  onChange={this.handleChange} autoFocus />
+          <InputLabel htmlFor="email">Mother Name</InputLabel>
+            <Input id="motherName" name="motherName" autoComplete="motherName" value={this.state.motherName}  onChange={this.handleChange}  />
             <p style={{ fontSize: '13px' }} className="text-danger">{this.state.motherNameError}</p>
           </FormControl>
+          </FormGroup>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" value={this.state.email}  onChange={this.handleChange} autoFocus />
+            <Input id="email" name="email" autoComplete="email" value={this.state.email}  onChange={this.handleChange}  />
             <p style={{ fontSize: '13px' }} className="text-danger">{this.state.emailError}</p>
           </FormControl>
           
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="email">Phone Number</InputLabel>
-            <Input id="phoneNumber" name="phoneNumber" autoComplete="phoneNumber" value={this.state.phoneNumber}  onChange={this.handleChange} autoFocus />
+            <Input id="phoneNumber" name="phoneNumber" autoComplete="phoneNumber" value={this.state.phoneNumber}  onChange={this.handleChange}  />
             <p style={{ fontSize: '13px' }} className="text-danger">{this.state.phoneNumberError}</p>
           </FormControl>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="email">MajorConcerns</InputLabel>
-            <Input id="majorConcerns" name="majorConcerns" autoComplete="majorConcerns" value={this.state.majorConcerns}  onChange={this.handleChange} autoFocus />
+            <Input id="majorConcerns" name="majorConcerns" autoComplete="majorConcerns" value={this.state.majorConcerns}  onChange={this.handleChange}  />
             <p style={{ fontSize: '13px' }} className="text-danger">{this.state.majorConcernsError}</p>
           </FormControl>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="email">Location</InputLabel>
-            <Input id="location" name="location" autoComplete="location" value={this.state.location}  onChange={this.handleChange} autoFocus />
+            <Input id="location" name="location" autoComplete="location" value={this.state.location}  onChange={this.handleChange}  />
             <p style={{ fontSize: '13px' }} className="text-danger">{this.state.locationError}</p>
           </FormControl>
           <FormControl className={classes.container} margin="normal" required fullWidth>
           <TextField
-        id="date"
-        label="Birthday"
-        type="date"
-       // defaultValue="2017-05-24"
-        className={classes.textField}
-        value={this.state.dob}
-        onChange={this.handleDate}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
+              id="date"
+              label="Birthday"
+              type="date"
+            // defaultValue="2017-05-24"
+              className={classes.textField}
+              value={this.state.dob}
+              onChange={this.handleDate}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+             <p style={{ fontSize: '13px' }} className="text-danger">{this.state.dobError}</p>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Gender</FormLabel>
@@ -256,6 +283,7 @@ render(){
             <FormControlLabel value="boy" control={<Radio />} label="Boy" />
            </RadioGroup>
         </FormControl>
+        <p style={{ fontSize: '13px' }} className="text-danger">{this.state.genderError}</p>
         <FormControl margin="normal" required fullWidth>
             <FormLabel htmlFor="username">Photo</FormLabel>
             <input type="file" name="childPhoto" encType="multipart/form-data" 

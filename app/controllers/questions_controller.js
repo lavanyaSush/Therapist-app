@@ -5,6 +5,7 @@ const { Question } = require('../models/question')
 //route to get question detials
 router.get('/', (req, res) => {
     Question.find()
+    .populate('subCategory')
         .then((questions) => {
             res.send(questions)
         })
@@ -44,7 +45,7 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
     const body = req.body
     const id = req.params.id
-    Question.findByIdAndUpdate({ _id: id }, body, { new: true })
+    Question.findByIdAndUpdate({ _id: id }, {$set:body}, { new: true })
         .then((question) => {
             if (question) {
                 res.send(question)
@@ -62,6 +63,7 @@ router.put('/:id', (req, res) => {
 router.get('/:id', (req, res) => {
     const id = req.params.id
     Question.findById({ _id: id })
+    .populate('subCategory')
     .populate('options.option')
         .then((question) => {
             if (question) {

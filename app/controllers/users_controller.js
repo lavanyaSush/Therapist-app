@@ -64,7 +64,7 @@ router.delete('/:id', authenticateUser,(req, res) => {
 router.put('/:id', authenticateUser,(req, res) => {
     const body = req.body
     const id = req.params.id
-   User.findByIdAndUpdate(id, body, { new: true })
+   User.findByIdAndUpdate(id, {$set:body}, { new: true })
         .then((user) => {
             res.send({
                user,

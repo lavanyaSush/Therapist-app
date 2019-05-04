@@ -65,17 +65,23 @@ class AddAssesment extends React.Component{
         this.state={
             children :[],
             child:null,
-            assesmentDate:new Date(),
+            childError:'',
+            assesmentDate:'',
             disciplines:[],
             discipline:'',
+            disciplineError:'',
             assesmentCategories:[],
             assesmentCategory:'',
-            date:''
+            assesmentDateError:''
 
         }
     }
     componentDidMount(){
-        const p1=axios.get('/child')
+        const p1=axios.get('/child',{
+          headers:{
+            'x-auth':localStorage.getItem('authToken')
+          }
+        })
         const p2 = axios.get('/discipline')
         //const p3=axios.get('/assesmentCategory')
         Promise.all([p1,p2])
@@ -104,15 +110,35 @@ class AddAssesment extends React.Component{
         const discipline=event.target.value
         this.setState(()=>({discipline}))
     }
-    handleassesmentCategory=(event)=>{
-        const assesmentCategory=event.target.value
-        this.setState(()=>({assesmentCategory}))
-    }
+    // handleassesmentCategory=(event)=>{
+    //     const assesmentCategory=event.target.value
+    //     this.setState(()=>({assesmentCategory}))
+    // }
     handleDate=(e)=> {
         console.log('in handle date ')
         const date=e.target.value
         this.setState(()=>({assesmentDate: date }))
         
+    }
+    checkForErrors=()=>{
+      let isError=false
+      let errors={}
+      if(this.state.child===null){
+        isError=true
+        errors.childError='Select child '
+      }
+      if(this.state.discipline.length===0){
+        isError=true
+        errors.disciplineError='select discipline'
+      }
+      if(this.state.assesmentDate===''){
+        isError=true
+        errors.assesmentDateError='select date'
+      }
+      if(isError){
+        this.setState(()=>({ ...this.state,...errors }))
+      }
+      return isError
     }
      handleSubmit=(event) =>{
          event.preventDefault()
@@ -121,6 +147,8 @@ class AddAssesment extends React.Component{
              discipline:this.state.discipline,
              assesmentDate:this.state.assesmentDate,
          }
+         const error=this.checkForErrors()
+         if(!error){
          axios.post('/assesment',formData)
          .then((response)=>{
              console.log('response',response.data)
@@ -140,7 +168,7 @@ class AddAssesment extends React.Component{
              console.log(err)
          })
      }
-    
+     }
     render(){
         const { classes } = this.props;
         let options=[]
@@ -172,6 +200,7 @@ class AddAssesment extends React.Component{
                             //formatGroupLabel={formatGroupLabel}
                             />
           </FormControl>
+          <p style={{ fontSize: '13px' }} className="text-danger">{this.state.childError}</p>
           <FormControl className={classes.container} margin="normal" required  noValidate>
           <TextField
         id="date"
@@ -185,6 +214,7 @@ class AddAssesment extends React.Component{
           shrink: true,
         }}
       />
+      <p style={{ fontSize: '13px' }} className="text-danger">{this.state.assesmentDateError}</p>
        </FormControl>
        <FormControl margin="normal" required fullWidth>
        <InputLabel htmlFor="subcategory">Discipline</InputLabel>
@@ -212,6 +242,7 @@ class AddAssesment extends React.Component{
                                 }) }
                                 
                   </Select>
+                  <p style={{ fontSize: '13px' }} className="text-danger">{this.state.disciplineError}</p>
        </FormControl>
        <Button
             type="submit"

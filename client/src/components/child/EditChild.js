@@ -11,7 +11,11 @@ class EditChild extends React.Component{
     }
     componentDidMount(){
         const id=this.props.match.params.id
-        axios.get(`/child/${id}`)
+        axios.get(`/child/${id}`,{
+            headers:{
+                'x-auth':localStorage.getItem('authToken')
+            }
+        })
         .then((response)=>{
             console.log(response.data)
             this.setState(()=>({child:response.data,isLoaded:true}))
@@ -23,13 +27,18 @@ class EditChild extends React.Component{
     
     handleSubmit=(formData)=>{
         const id=this.props.match.params.id
-        console.log(formData)
+        console.log('in handle submit of edit child',formData)
         axios.put(`/child/${id}`,formData,{
+            headers:{
+                'x-auth':localStorage.getItem('authToken')
+            }},{
             'content-type' : 'multipart/form-data'
+        
         
         })
         .then((response)=>{
             console.log(response.data)
+            this.props.history.push('/child/list')
         })
         .catch((err)=>{
             console.log(err)
@@ -48,7 +57,9 @@ class EditChild extends React.Component{
                             motherName={this.state.child.motherName}
                             phoneNumber={this.state.child.phoneNumber}
                             location={this.state.child.location}
-                            childPhoto={this.state.child.childPhoto}/>}
+                            //childPhoto={this.state.child.childPhoto}
+                            />
+                        }
                 </div>
         )
     }

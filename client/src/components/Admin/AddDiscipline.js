@@ -95,33 +95,19 @@ const styles = theme => ({
 
 
 
-class CategoryForm extends React.Component {
+class DisciplineForm extends React.Component {
     constructor(props) {
         super(props)
         //console.log(props.imageUrl)
 
         this.state = {
             name: props.name ? props.name : '',
-            categories:[],
-            category:'',
-
             nameError: '',
 
 
         }
     }
-    componentDidMount(){
-        axios.get('/category')
-        .then((response)=>{
-            console.log(response.data)
-            const categories = response.data
-            this.setState(()=>({categories}))
-
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-    }
+    
     handleChange = (e) => {
         const name = e.target.name
         const value = e.target.value
@@ -129,25 +115,16 @@ class CategoryForm extends React.Component {
 
     }
 
-    handleSelect = (data) => {
-        this.setState(() => ({ category: data }))
-    }
-
-
-
-    validate = () => {
+   
+    checkForErrors = () => {
         let isError = false;
         const errors = {
             nameError: '',
-
-
         }
-
         if (this.state.name.length === 0) {
             isError = true;
-            errors.nameError = "Provide Name ";
+            errors.nameError = "Enter Valid Discipline ";
         }
-
         this.setState({
             ...this.state,
             ...errors
@@ -156,37 +133,36 @@ class CategoryForm extends React.Component {
     }
 
     handleSubmit = (e) => {
-
         e.preventDefault()
-
-        const err = this.validate()
+        const err = this.checkForErrors()
         if (!err) {
-
             const { name } = this.state
             const formData = {
               name
             }
-           // console.log(formData)
-            this.props.handleSubmit(formData)
-            // console.log(this.state)
+            axios.post('/discipline',formData)
+            .then((response)=>{
+                console.log('response from server',response.data)
+                this.setState(()=>({name:''}))
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+            
 
         }
 
     }
-
-
 
     render() {
         const { classes } = this.props;
        // console.log(this.props)
         return (
             <React.Fragment>
-
-
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Typography gutterBottom component="h5" variant="h5" align="center">
-                            {this.props.title}
+                            Add Discipline
                         </Typography>
                         <React.Fragment>
                             <hr />
@@ -208,13 +184,10 @@ class CategoryForm extends React.Component {
                                             <FormLabel className={classes.formlabel} error={true}>{this.state.nameError}</FormLabel>
                                         </Grid>
                                     </Grid>
-                                    
-                                        
-                                            <FormLabel className={classes.formlabel} error={true}>{this.state.nameError}</FormLabel>
-                                         <Grid container spacing={0} alignItems="center" justify="center">
+                                    <Grid container spacing={0} alignItems="center" justify="center">
 
                                         <div className={classes.buttons}>
-                                        <Link to='/category/list'>
+                                        <Link to='/'>
                                             <Button
                                                 variant="contained"
                                                 color="primary"
@@ -247,8 +220,8 @@ class CategoryForm extends React.Component {
     }
 }
 
-CategoryForm.propTypes = {
+DisciplineForm.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CategoryForm);
+export default withStyles(styles)(DisciplineForm);

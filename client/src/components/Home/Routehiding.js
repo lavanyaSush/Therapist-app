@@ -5,9 +5,9 @@ import { Route, Redirect } from 'react-router-dom'
 const PrivateRoute = (props) => {
 
     const { component: Component, ...rest } = props
-     console.log('pro', props)
+    //console.log('pro', props)
     const { user } = props
-    console.log(user)
+    //console.log(user)
     return (
 
         <Route {...rest} render={(props) => (
@@ -20,7 +20,7 @@ const PrivateRoute = (props) => {
     )
 }
 const mapStateToProps = (state) => {
-    console.log('state',state)
+    //console.log('state',state)
     return {
         user: state.user
     }

@@ -17,7 +17,7 @@ const childSchema = new Schema({
     },
     childPhoto: {
         type: String,
-        required: true
+        required: false
     },
     dob: {
         type: Date,
@@ -51,6 +51,10 @@ const childSchema = new Schema({
                 return 'invalid email id'
             }
         }
+    },
+    user : {
+        type : Schema.Types.ObjectId,
+        ref : 'User'
     }
 })
 const Child = mongoose.model('Child', childSchema)

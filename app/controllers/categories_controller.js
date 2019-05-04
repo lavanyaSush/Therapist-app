@@ -54,7 +54,7 @@ router.get('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
     const body = req.body
     const id = req.params.id
-    Category.findByIdAndUpdate({ _id: id }, body, { new: true })
+    Category.findByIdAndUpdate({ _id: id },{$set:body}, { new: true })
         .then((category) => {
             if (category) {
                 res.send(category)

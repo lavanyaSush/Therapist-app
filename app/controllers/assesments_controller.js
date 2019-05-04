@@ -53,7 +53,7 @@ router.get('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
     const body = req.body
     const id = req.params.id
-    Assesment.findByIdAndUpdate({ _id: id }, body, { new: true })
+    Assesment.findByIdAndUpdate({ _id: id },{$set:body}, { new: true })
         .then((assesment) => {
             if (assesment) {
                 res.send(assesment)

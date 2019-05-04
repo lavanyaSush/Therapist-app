@@ -3,14 +3,14 @@ const {SubCategory} =require('./subcategory')
 const { Schema } = mongoose
 const questionSchema = new Schema({
     title: {
-        type: String,
-        required: true
+        type: String
+        //required: true
     },
     
     subCategory: {
         type: Schema.Types.ObjectId,
-        ref: 'SubCategory',
-        required:true
+        ref: 'SubCategory'
+        //required:true
     },
     options:{
         type:[
@@ -29,10 +29,10 @@ const questionSchema = new Schema({
         enum: ['', 'L', 'H']
     },
     
-    icon: {
-        type: Schema.Types.ObjectId,
-        ref: "Icon"
-    }
+    // icon: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: "Icon"
+    // }
     //create an icon category which will have title and image add image catergory ref to question schema
 })
 questionSchema.post('save',function(next){

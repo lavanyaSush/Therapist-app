@@ -51,7 +51,7 @@ router.get('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
     const body = req.body
     const id = req.params.id
-    Discipline.findByIdAndUpdate({ _id: id }, body, { new: true })
+    Discipline.findByIdAndUpdate({ _id: id }, {$set:body}, { new: true })
         .then((discipline) => {
             if (discipline) {
                 res.send(discipline)

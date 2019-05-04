@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from '../../config/axios';
-import {setUser} from '../../actions/user'
+import {setUser} from '../redux/actions/user'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types';
@@ -60,6 +60,7 @@ class LogIn extends React.Component {
             passwordError:'',
             redirectList : false,
             loginFail:false,
+            loginUser:'',
             isLogin : localStorage.getItem('authToken')
             
         }
@@ -110,11 +111,13 @@ class LogIn extends React.Component {
         console.log('response',response.data)
         const tn =response.data.token.token
         //console.log(tn)
-        //const user = token.user
+        //const user = tn.user
         //console.log('user',user.username)
+        //this.setState(()=>({loginUser:user.username}))
         localStorage.setItem('authToken', tn)
         //console.log(response.data)
         this.props.dispatch(setUser(tn))
+        this.props.history.push('/user/dashboard')
         this.setState(()=>{
             return{
                 email:'',
@@ -146,7 +149,7 @@ handleShowPassword = (e) => {
 
     render(){
         if (this.state.redirectList) {
-            return <Redirect to="/user/dashboard" />
+            return 
         }
   const { classes } = this.props;
 

@@ -94,58 +94,71 @@ const styles = theme => ({
 });
 
 
-class AddOption extends React.Component{
-    constructor(){
-        super()
-        this.state={
-            name:'',
-            nameError:'',
-            points:'',
-            pointsError:''
+
+class CategoryForm extends React.Component {
+    constructor(props) {
+        super(props)
+        console.log('in category form',props)
+
+        this.state = {
+            name: props.name ? props.name : '',
+            nameError: '',
+
+
         }
     }
-    handleName=(event)=>{
-        const name=event.target.value
-       // console.log(name)
-        this.setState(()=>({name}))
+   
+    handleChange = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+        this.setState(() => ({ [name]: value }))
+
     }
-    handlePoints=(event)=>{
-        const points=event.target.value
-        this.setState(()=>({points}))
-    }
-    handleSubmit=(event)=>{
-        event.preventDefault()
-        //console.log('entered submit')
-        const formData={
-            name:this.state.name,
-            points :this.state.points
+
+    
+    checkForErrors = () => {
+        let isError = false;
+        const errors = {
+            nameError: '',
         }
-        console.log(formData)
-        axios.post('/option',formData)
-        .then((response)=>{
-            console.log(response.data)
-            this.setState(()=>{
-                return{
-                    name:'',
-                    points :''
-                }
-            })
+        if (this.state.name.length === 0) {
+            isError = true;
+            errors.nameError = "Enter valid Category  Name ";
+        }
+        this.setState({
+            ...this.state,
+            ...errors
         })
-        .catch((err)=>{
-            console.log(err)
-        })
+        return isError
     }
-    render(){
+
+    handleSubmit = (e) => {
+        e.preventDefault()
+        const err = this.checkForErrors()
+        if (!err) {
+            const { name } = this.state
+            const formData = {
+              name
+            }
+           // console.log(formData)
+            this.props.handleSubmit(formData)
+            // console.log(this.state)
+            this.setState(()=>({name:'' }))
+
+        
+
+    }
+}
+
+    render() {
         const { classes } = this.props;
        // console.log(this.props)
         return (
             <React.Fragment>
-
-
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Typography gutterBottom component="h5" variant="h5" align="center">
-                            Add Option
+                            {this.props.title}
                         </Typography>
                         <React.Fragment>
                             <hr />
@@ -160,71 +173,51 @@ class AddOption extends React.Component{
                                                 id="name"
                                                 name="name"
                                                 value={this.state.name}
-                                                onChange={this.handleName}
+                                                onChange={this.handleChange}
                                                 fullWidth
                                                 autoComplete="pname"
                                             />
                                             <FormLabel className={classes.formlabel} error={true}>{this.state.nameError}</FormLabel>
-                                        </Grid>
-                                    </Grid>
-                                    
-                                        
-                                            <FormLabel className={classes.formlabel} error={true}>{this.state.nameError}</FormLabel>
-                                           
-                                    <Grid container spacing={24} className={classes.container} alignItems="baseline" justify="center" >
-                                        <Grid item xs={2} className={classes.label} >
-                                            <Typography variant="button" gutterBottom>Points</Typography>
-                                        </Grid>
-                                        <Grid item xs={7}>
-                                            <TextField
-                                                id="points"
-                                                name="points"
-                                                value={this.state.points}
-                                                onChange={this.handlePoints}
-                                                fullWidth
-                                                autoComplete="pname"
-                                            />
-                                            <FormLabel className={classes.formlabel} error={true}>{this.state.pointsError}</FormLabel>
                                         </Grid>
                                     </Grid>
                                     <Grid container spacing={0} alignItems="center" justify="center">
 
-                                    <div className={classes.buttons}>
-                                    <Link to='/category/list'>
-                                    <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={this.handleBack}
-                                    className={classes.button}
-                                    fullWidth>
-                                    Back
-                                    </Button>
-                                    </Link>
+                                        <div className={classes.buttons}>
+                                        <Link to='/category/list'>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                //onClick={this.handleBack}
+                                                className={classes.button}
+                                                fullWidth>
+                                                Back
+                                            </Button>
+                                            </Link>
 
-                                    <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={this.handleSubmit}
-                                    className={classes.button}
-                                    fullWidth
-                                    > Submit
-                                    </Button>
-                                    </div>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={this.handleSubmit}
+                                                className={classes.button}
+                                                fullWidth
+                                            > Submit
+                                            </Button>
+                                        </div>
                                     </Grid>
-                                    </form>
-                                    </React.Fragment>
+                                </form>
+                            </React.Fragment>
 
-                                    </React.Fragment>
+                        </React.Fragment>
 
-                                    </Paper>
-                                    </main>
-                                    </React.Fragment>
-                                    );
-                                    }
+                    </Paper>
+                </main>
+            </React.Fragment>
+        );
+    }
 }
 
-AddOption.propTypes = {
-classes: PropTypes.object.isRequired,
+CategoryForm.propTypes = {
+    classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AddOption);
+export default withStyles(styles)(CategoryForm);

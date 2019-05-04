@@ -35,7 +35,7 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
     const body = req.body
     const id = req.params.id
-    Option.findByIdAndUpdate({ _id: id }, body, { new: true })
+    Option.findByIdAndUpdate({ _id: id }, {$set:body}, { new: true })
         .then((option) => {
             if (option) {
                 res.send(option)

@@ -5,11 +5,14 @@ import axios from '../../config/axios';
 class AddChild extends React.Component{
     
     handleSubmit=(formData)=>{
-        console.log('formData',formData)
-        axios.post('/child',formData)
+        console.log('formData',formData,)
+        axios.post('/child',formData,{
+            headers : {
+                'x-auth' : localStorage.getItem('authToken')
+            }})
         .then((response)=>{
-            console.log(response.data)
-           //this.props.history.push('/child/assesment/new')
+            console.log('response from server',response.data)
+           this.props.history.push('/child/list')
         })
         .catch((err)=>{
             console.log(err)

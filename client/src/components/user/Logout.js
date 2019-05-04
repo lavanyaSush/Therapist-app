@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from '../../config/axios';
-import {removeUser} from '../../actions/user'
+import {removeUser} from '../redux/actions/user'
 import {connect} from 'react-redux'
 class  Logout extends React.Component{
     constructor(props){

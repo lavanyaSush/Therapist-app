@@ -112,6 +112,7 @@ submitHandle(event){
     axios.post('/user/register',formData)
     .then((response)=>{
         console.log(response.data)
+        this.props.history.push('/login')
         this.setState(()=>{
             return {
             username :'',
@@ -151,7 +152,7 @@ render(){
           </FormControl>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" value={this.state.email}  onChange={this.emailChange} autoFocus />
+            <Input id="email" name="email" autoComplete="email" value={this.state.email}  onChange={this.emailChange}  />
             <p style={{ fontSize: '13px' }} className="text-danger">{this.state.emailError}</p>
           </FormControl>
           <FormControl margin="normal" required fullWidth>

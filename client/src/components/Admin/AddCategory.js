@@ -1,19 +1,15 @@
 import React from 'react'
-//import axios from '../axios/config';
 import axios from '../../config/axios';
-//import QuestionForm from './QuestionForm'
-import QuestionForm from './QForm'
-//import { Link } from 'react-router-dom'
+import CategoryForm from './CategoryForm'
 
-
-class AddQuestion extends React.Component {
+class AddCategory extends React.Component {
 
     handleSubmit = (data) => {
-        axios.post("/question", data )
+        axios.post("/category", data)
             .then(response => {
                 const data = response.data
                 console.log(data)
-                // this.props.history.push("/question/list")
+                this.props.history.push("/category/list")
 
             })
             .catch(err => {
@@ -25,7 +21,7 @@ class AddQuestion extends React.Component {
         return (
             <div>
                 {/* <h2>add</h2> */}
-                <QuestionForm handleSubmit={this.handleSubmit} title="Add New Question" />
+                <CategoryForm handleSubmit={this.handleSubmit} title="Add New Category" />
               
 
             </div>
@@ -33,4 +29,4 @@ class AddQuestion extends React.Component {
 
     }
 }
-export default AddQuestion
+export default AddCategory

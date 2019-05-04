@@ -5,10 +5,7 @@ const categorySchema = new Schema({
         type: String,
         required: true
     }
-    // assesmentCategory: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'AssesmentCategory',
-    // }
+   
 })
 const Category = mongoose.model('Category', categorySchema)
 module.exports = {

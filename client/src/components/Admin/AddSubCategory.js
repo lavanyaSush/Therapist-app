@@ -1,8 +1,7 @@
 import React from 'react'
-//import axios from '../axios/config';
+
 import axios from '../../config/axios';
 import SubCategoryForm from './SubCategoryForm'
-//import { Link } from 'react-router-dom'
 
 
 class AddSubCategory extends React.Component {
@@ -23,7 +22,7 @@ class AddSubCategory extends React.Component {
     render() {
         return (
             <div>
-                {/* <h2>add</h2> */}
+               
                 <SubCategoryForm handleSubmit={this.handleSubmit} title="Add New SubCategory" />
               
 

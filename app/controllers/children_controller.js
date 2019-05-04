@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { Child } = require('../models/child')
 const multer = require('multer')
+const {authenticateUser} =require('../middleware/authenticate')
 //var upload = multer({ dest: 'uploads/' })
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -14,8 +15,8 @@ var storage = multer.diskStorage({
    
   var upload = multer({ storage: storage })
 //route to get child detials
-router.get('/', (req, res) => {
-    Child.find()
+router.get('/', authenticateUser,(req, res) => {
+    Child.find({user:req.user._id})
         .then((childern) => {
             res.send(childern)
         })
@@ -25,16 +26,19 @@ router.get('/', (req, res) => {
 })
 
 //route to add a child 
-router.post('/',upload.single('childPhoto') ,(req, res) => {
-    console.log(req.file)
-    const destination = req.file.destination
-    const imagePath="http://localhost:3001" +destination.slice(1)+req.file.filename
-    console.log(imagePath)
+//,upload.single('childPhoto') 
+router.post('/',authenticateUser,(req, res) => {
+    //console.log(req.file)
+    //const destination = req.file.destination
+    //const imagePath="http://localhost:3001" +destination.slice(1)+req.file.filename
+    //console.log(imagePath)
     const body = req.body
     //body = body.imagePath 
-    body.childPhoto = imagePath
+    //body.childPhoto = imagePath
+    
     console.log(body)
     const child = new Child(body)
+    child.user=req.user._id
     child.save()
         .then((child) => {
             if (child) {
@@ -49,10 +53,11 @@ router.post('/',upload.single('childPhoto') ,(req, res) => {
 })
 
 //route to edit a child 
-router.put('/:id', (req, res) => {
+router.put('/:id', authenticateUser,(req, res) => {
+    console.log(req.body,req.user)
     const body = req.body
     const id = req.params.id
-    Child.findByIdAndUpdate({ _id: id }, body, { new: true })
+    Child.findByIdAndUpdate({ _id: id ,user:req.user._id},{$set:body}, { new: true })
         .then((child) => {
             if (child) {
                 res.send(child)
@@ -67,9 +72,9 @@ router.put('/:id', (req, res) => {
 
 
 //route - to get a child by ID
-router.get('/:id', (req, res) => {
+router.get('/:id', authenticateUser,(req, res) => {
     const id = req.params.id
-    Child.findById({ _id: id })
+    Child.findById({ _id: id ,user:req.user._id})
         .then((child) => {
             if (child) {
                 res.send(child)
@@ -84,9 +89,9 @@ router.get('/:id', (req, res) => {
 
 
 //route - to delete a record by Id
-router.delete('/:id', (req, res) => {
+router.delete('/:id',authenticateUser, (req, res) => {
     const id = req.params.id
-    Child.findByIdAndDelete(id)
+    Child.findByIdAndDelete({_id:id,user:req.user._id})
         .then((child) => {
             if (child) {
                 res.send(child)
